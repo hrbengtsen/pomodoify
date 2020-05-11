@@ -9,9 +9,6 @@ const Badge = styled('span').withConfig({ shouldForwardProp })`
   white-space: nowrap;
   vertical-align: baseline;
   top: -1px;
-  &:empty {
-    display: none;
-  };
   ${space}
   ${color}
   ${border}

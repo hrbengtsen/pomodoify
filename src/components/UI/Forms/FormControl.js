@@ -7,10 +7,8 @@ const formControlStyle = (props) => css`
   display: block;
   width: 100%;
   line-height: 1.5;
-  color: ${props => props.theme.colors.text[0]};
-  background-color: ${props => props.theme.colors.bg[1]};
   background-clip: padding-box;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: color ${props => props.theme.hoverTime} ease-in-out, box-shadow ${props => props.theme.hoverTime} ease-in-out;
   box-sizing: border-box;
   &::-ms-expand {
     background-color: transparent;
@@ -43,6 +41,59 @@ const focus = (props) => {
   return '';
 };
 
+const slider = (props) => {
+  if (props.type === "range") {
+    return css`
+      -webkit-appearance: none;
+      border: 0;
+      height: 10px;
+      cursor: pointer;
+      &::-webkit-slider-thumb {
+        appearance: none;
+        width: 12px;
+        height: 24px;
+        background-color: ${props => props.theme.colors.text[0]};
+        border-radius: ${props => props.theme.radii.xl}px;
+      };
+      &::-moz-range-thumb {
+        appearance: none;
+        width: 12px;
+        height: 24px;
+        background-color: ${props => props.theme.colors.text[0]};
+        border-radius: ${props => props.theme.radii.xl}px;
+      };
+      &::-ms-thumb {
+        appearance: none;
+        width: 12px;
+        height: 24px;
+        background-color: ${props => props.theme.colors.text[0]};
+        border-radius: ${props => props.theme.radii.xl}px;
+      };
+
+      &::-webkit-slider-thumb:hover {
+        background-color: ${props => props.theme.colors.text[1]};
+      };
+      &::-webkit-slider-thumb:focus {
+        background-color: ${props => props.theme.colors.text[1]};
+      };
+      &::-moz-range-thumb:hover {
+        background-color: ${props => props.theme.colors.text[1]};
+      };
+      &::-moz-range-thumb:focus {
+        background-color: ${props => props.theme.colors.text[1]};
+      };
+      &::-ms-thumb:hover {
+        background-color: ${props => props.theme.colors.text[1]};
+      };
+      &::-ms-thumb:focus {
+        background-color: ${props => props.theme.colors.text[1]};
+      };
+    `;
+  }
+
+  return '';
+};
+
 const FormControlEditor = styled('div').withConfig({ shouldForwardProp })`
   max-height: 105px;
   overflow: auto;
@@ -52,6 +103,7 @@ const FormControlEditor = styled('div').withConfig({ shouldForwardProp })`
 
 const FormControlInput = styled('input').withConfig({ shouldForwardProp })`
   ${formControlStyle};
+  ${props => slider(props)}
 `;
 
 const FormControlTextarea = styled('textarea').withConfig({ shouldForwardProp })`
@@ -61,10 +113,8 @@ const FormControlTextarea = styled('textarea').withConfig({ shouldForwardProp })
 
 const FormControlSelect = styled('select').withConfig({ shouldForwardProp })`
   ${formControlStyle};
-  &:focus::-ms-value {
-    color: ${props => props.theme.colors.gray[1]};
-    background-color: ${props => props.theme.colors.gray[3]};
-  };
+  cursor: pointer;
+  ${props => slider(props)}
 `;
 
 const FormControl = (props) => {
@@ -84,9 +134,10 @@ FormControl.defaultProps = {
   fontFamily: 'regular',
   borderRadius: 'md',
   p: 'sm',
-  border: 'sm',
-  borderColor: 'gray.1',
-  backgroundColor: 'gray.3'
+  border: 'md',
+  borderColor: 'text.0',
+  color: 'text.0',
+  backgroundColor: 'bg.1'
 };
 
 export default FormControl;

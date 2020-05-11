@@ -1,12 +1,37 @@
 import React from 'react';
-import styled from 'styled-components';
-import { space, typography, color } from 'styled-system';
+import styled, { css } from 'styled-components';
+import { space, typography, color, border, position } from 'styled-system';
 import shouldForwardProp from '@styled-system/should-forward-prop';
 
+const highlight = (props) => (
+  props.highlight && css`
+    &::after {
+      content: "";
+      position: absolute;
+      width: 225px;
+      background: #FCEDA2;
+      left: 0;
+      bottom: .5em;
+      height: .5em;
+      z-index: -1;
+      border-radius: 16px;
+    };
+
+    @media (max-width: ${props => props.theme.breakpoints[0]}) {
+      &::after {
+        width: 175px;
+      };
+    }
+  `
+);
+
 const StyledHeading = styled('h1').withConfig({ shouldForwardProp })`
+  ${props => highlight(props)}
   ${space}
   ${typography}
   ${color}
+  ${border}
+  ${position}
 `;
 
 const Heading = (props) => {

@@ -11,10 +11,16 @@ import Modal from './Modal/Modal.js';
 import ModalHeader from './Modal/ModalHeader.js';
 import ModalBody from './Modal/ModalBody.js';
 import ModalFooter from './Modal/ModalFooter.js';
+import Sheet from './Sheet/Sheet.js';
+import SheetHeader from './Sheet/SheetHeader.js';
+import SheetBody from './Sheet/SheetBody.js';
+import SheetFooter from './Sheet/SheetFooter.js';
 import Heading from './Text/Heading.js';
 import Text from './Text/Text.js';
 import FormGroup from './Forms/FormGroup.js';
 import FormControl from './Forms/FormControl.js';
+import Checkbox from './Forms/Checkbox.js';
+import Label from './Forms/Label.js';
 import { Card, CardClickable } from './Cards/Card.js';
 import CardBody from './Cards/CardBody.js';
 import Image from './Image/Image.js';
@@ -40,10 +46,16 @@ export {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  Sheet,
+  SheetHeader,
+  SheetBody,
+  SheetFooter,
   Heading,
   Text,
   FormGroup,
   FormControl,
+  Checkbox,
+  Label,
   Card,
   CardClickable,
   CardBody,

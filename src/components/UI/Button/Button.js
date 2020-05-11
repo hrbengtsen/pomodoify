@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { space, color, border, typography, shadow, position, layout, variant } from 'styled-system';
+import { space, color, border, typography, shadow, position, layout, variant, flexbox } from 'styled-system';
 import shouldForwardProp from '@styled-system/should-forward-prop';
 import { buttonVariants } from './buttonVariants.js';
 import { Link } from 'react-router-dom';
@@ -36,7 +36,7 @@ const buttonStyles = (props) => css`
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
-  transition: all ${props => props.theme.hoverTime} ease-in-out;
+  transition: color ${props => props.theme.hoverTime} ease-in-out, background-color ${props => props.theme.hoverTime} ease-in-out, transform ${props => props.theme.hoverTime} ease-in-out, border ${props => props.theme.hoverTime} ease-in-out, box-shadow ${props => props.theme.hoverTime} ease-in-out;
   &:hover {
     text-decoration: none;
     background-color: ${props => props.theme.colors.button[0]};
@@ -64,6 +64,7 @@ const buttonStyles = (props) => css`
   ${shadow}
   ${position}
   ${layout}
+  ${flexbox}
   ${variant(buttonVariants)}
 `;
 
@@ -97,7 +98,8 @@ RouterButton.defaultProps = {
   p: 'md',
   m: 'sm',
   fontSize: 'md',
-  fontFamily: 'regular'
+  fontFamily: 'regular',
+  to: '/'
 };
 
 const LinkButton = styled('a').withConfig({ shouldForwardProp })`

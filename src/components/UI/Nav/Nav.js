@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { flexbox, layout, position, typography, color, space } from 'styled-system';
+import { flexbox, layout, position, typography, color, space, shadow } from 'styled-system';
 import shouldForwardProp from '@styled-system/should-forward-prop';
 
 const navCollapse = (props) => {
@@ -28,6 +28,30 @@ const navCollapse = (props) => {
   return '';
 };
 
+const hide = (props) => {
+  if (props.hide === 'sm') {
+    return css`
+      @media (max-width: calc(${props => props.theme.breakpoints[0]} - 1px)) {
+        display: none;
+      };
+    `;
+  }
+
+  return '';
+};
+
+const show = (props) => {
+  if (props.show === 'sm') {
+    return css`
+      @media (min-width: ${props => props.theme.breakpoints[0]}) {
+        display: none;
+      };
+    `;
+  }
+
+  return '';
+};
+
 const Nav = styled('nav').withConfig({ shouldForwardProp })`
   display: flex;
   flex-wrap: wrap;
@@ -37,18 +61,21 @@ const Nav = styled('nav').withConfig({ shouldForwardProp })`
   &:last-child {
     flex: 1;
   }
-  @media (max-width: calc(${props => props.theme.breakpoints[1]} - 1px)) {
+  @media (max-width: calc(${props => props.theme.breakpoints[0]} - 1px)) {
     & > nav:not(:last-child) {
       width: 100%;
     }
   };
   ${props => navCollapse(props)}
+  ${props => hide(props)}
+  ${props => show(props)}
   ${flexbox}
   ${layout}
   ${position}
   ${typography}
   ${color}
   ${space}
+  ${shadow}
 `;
 
 Nav.defaultProps = {

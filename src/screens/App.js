@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import LandingScreen from './LandingScreen';
 import TimerScreen from './TimerScreen';
-import Header from '../components/Header/Header';
+import ProgressionScreen from './ProgressionScreen';
+import SettingsScreen from './SettingsScreen';
+import Header from '../components/Navigation/Header';
+import Footer from '../components/Navigation/Footer';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 /*
@@ -16,12 +19,17 @@ function App() {
   return (
     <Router>
       <Header />
-      <Switch>
-        <Route exact path="/" render={() =>
-          <LandingScreen userName={user.name} />
-        } />
-        <Route path="/timer" component={TimerScreen} />
-      </Switch>
+      <div style={{ margin: '65px 0' }}>
+        <Switch>
+          <Route exact path="/" render={() =>
+            <LandingScreen userName={user.name} />
+          } />
+          <Route path="/timer" component={TimerScreen} />
+          <Route path="/progression" component={ProgressionScreen} />
+          <Route path="/settings" component={SettingsScreen} />
+        </Switch>
+      </div>
+      <Footer />
     </Router>
   );
 }

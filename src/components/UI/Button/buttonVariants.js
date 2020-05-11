@@ -30,5 +30,23 @@ export const buttonVariants = {
         borderColor: 'secondary.0'
       }
     },
+    achievement: {
+      color: 'bg.0',
+      backgroundColor: 'bg.1',
+      border: 'none',
+      fontWeight: 'bold',
+      boxShadow: 'none',
+      width: '48px',
+      borderRadius: 'circle',
+      p: 'md',
+      '&:hover': {
+        backgroundColor: 'bg.1',
+        color: 'text.0'
+      },
+      '&:focus': {
+        backgroundColor: 'bg.1',
+        color: 'text.0'
+      }
+    }
   }
 };
