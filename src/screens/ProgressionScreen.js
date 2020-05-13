@@ -8,7 +8,7 @@ function ProgressionScreen(props) {
   return (
     <Container>
       <Heading textAlign="center" fontWeight="reg" p="0">Progression</Heading>
-      <Container maxWidth="480px" margin="auto" px="xl">
+      <Container maxWidth="480px" mx="auto" px="xl">
         <Heading type="h5" color="text.0" position="relative" display="inline-block" highlight zIndex="1">
           Custom rewards
         </Heading>

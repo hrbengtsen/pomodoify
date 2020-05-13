@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Button, Sheet, SheetHeader, SheetBody, Heading, Icon, Text, Container } from '../UI';
 import Achievement from '../Progression/Achievement';
 

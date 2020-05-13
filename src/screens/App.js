@@ -8,7 +8,15 @@ import Footer from '../components/Navigation/Footer';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 /*
-  make dummy authentication, by making isAuth route switch if you dont have a username in localstorage (What is your name? screen to set it) - to quickly be able to integrate firebase
+  To-do:
+  - Dummy authentication (with isAuth route and User object in localstorage: What is your name? screen)
+  - Timer
+  - Goals
+  - Achievements
+  - Settings
+  - Sound
+  - Polish
+  - Firebase integration
 */
 
 function App() {
