@@ -2,6 +2,8 @@ import React from 'react';
 import { Container, Heading, Button, FormGroup, FormControl, Row, Col, Text, Checkbox, Label } from '../components/UI';
 
 function SettingsScreen(props) {
+  const { deleteUser } = props;
+
   return (
     <Container>
       <Heading textAlign="center" fontWeight="reg" p="0">Settings</Heading>
@@ -59,7 +61,7 @@ function SettingsScreen(props) {
           Preferences
         </Heading>
         <Container my="lg" p="md">
-          <Button fontWeight="bold">Reset achievements</Button>
+          <Button fontWeight="bold" onClick={() => deleteUser()}>Reset account</Button>
         </Container>
         <Container my="lg" m="sm" p="md" display="flex">
           <Checkbox mr="md" />

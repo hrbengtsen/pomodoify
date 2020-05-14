@@ -6,7 +6,8 @@ import ProgressionScreen from './ProgressionScreen';
 import SettingsScreen from './SettingsScreen';
 import Header from '../components/Navigation/Header';
 import Footer from '../components/Navigation/Footer';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 
 /*
   To-do:
@@ -30,27 +31,52 @@ function App() {
     }
   }, []);
 
+  function addUser(username) {
+    let user = {
+      name: username,
+      settings: {},
+      achievements: {},
+      rewards: {},
+    }
+    localStorage.setItem('user', JSON.stringify(user));
+    setUser(user);
+  }
+
+  function deleteUser() {
+    localStorage.removeItem('user');
+    setUser(null);
+  }
+
   return (
     <Router>
-      {user 
-      ?
+      <Route render={({ location }) => (
         <>
-          <Header />
-          <div style={{ margin: '65px 0' }}>
-            <Switch>
-              <Route exact path="/" render={() =>
-                <UserScreen username={user.name} />
-              } />
-              <Route path="/timer" component={TimerScreen} />
-              <Route path="/progression" component={ProgressionScreen} />
-              <Route path="/settings" component={SettingsScreen} />
-            </Switch>
-          </div>
-          <Footer />
+          {user 
+          ?
+            <>
+              <Header />
+              <div style={{ margin: '65px 0' }}>
+                <Switch location={location} key={location.pathname}>
+                  <Route exact path="/" render={() =>
+                    <UserScreen username={user.name} />
+                  } />
+                  <Route path="/timer" component={TimerScreen} />
+                  <Route path="/progression" component={ProgressionScreen} />
+                  <Route path="/settings" render={() => <SettingsScreen deleteUser={deleteUser} />} />
+                </Switch>
+              </div>
+              <Footer />
+            </>
+          :
+            <AnimatePresence exitBeforeEnter initial={false}>
+              <Switch location={location} key={location.pathname}>
+                <Route exact path="/" render={() => <LandingScreen addUser={addUser} />} />
+                <Redirect to="/" />
+              </Switch>
+            </AnimatePresence>
+          }
         </>
-      :
-        <LandingScreen setUser={setUser} />
-      }
+      )} />
     </Router>
   );
 }
