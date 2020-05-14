@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import LandingScreen from './LandingScreen';
+import UserScreen from './UserScreen';
 import TimerScreen from './TimerScreen';
 import ProgressionScreen from './ProgressionScreen';
 import SettingsScreen from './SettingsScreen';
@@ -20,24 +21,36 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 */
 
 function App() {
-  const [user, setUser] = useState({
-    name: 'User'
-  });
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    let storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
 
   return (
     <Router>
-      <Header />
-      <div style={{ margin: '65px 0' }}>
-        <Switch>
-          <Route exact path="/" render={() =>
-            <LandingScreen userName={user.name} />
-          } />
-          <Route path="/timer" component={TimerScreen} />
-          <Route path="/progression" component={ProgressionScreen} />
-          <Route path="/settings" component={SettingsScreen} />
-        </Switch>
-      </div>
-      <Footer />
+      {user 
+      ?
+        <>
+          <Header />
+          <div style={{ margin: '65px 0' }}>
+            <Switch>
+              <Route exact path="/" render={() =>
+                <UserScreen username={user.name} />
+              } />
+              <Route path="/timer" component={TimerScreen} />
+              <Route path="/progression" component={ProgressionScreen} />
+              <Route path="/settings" component={SettingsScreen} />
+            </Switch>
+          </div>
+          <Footer />
+        </>
+      :
+        <LandingScreen setUser={setUser} />
+      }
     </Router>
   );
 }
