@@ -5,7 +5,7 @@ function UserScreen(props) {
   const { username } = props;
 
   return (
-    <Container>
+    <Container position="absolute" width="auto" height="auto" left="0" right="0" my="xxxxl">
       <Heading textAlign="center" fontWeight="reg" p="0" px="xl">Pomodoify</Heading>
       <Heading type="h5" textAlign="center" fontWeight="reg" px="xl">Welcome back {username}! Ready to get to work?</Heading>
       <Container textAlign="center" mt="xxxl">

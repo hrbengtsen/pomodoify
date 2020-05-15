@@ -6,7 +6,7 @@ import AchievementSheet from '../components/Sheets/AchievementSheet';
 
 function ProgressionScreen(props) {
   return (
-    <Container>
+    <Container position="absolute" width="auto" height="auto" left="0" right="0" my="xxxxl">
       <Heading textAlign="center" fontWeight="reg" p="0">Progression</Heading>
       <Container maxWidth="480px" mx="auto" px="xl">
         <Heading type="h5" color="text.0" position="relative" display="inline-block" highlight zIndex="1">

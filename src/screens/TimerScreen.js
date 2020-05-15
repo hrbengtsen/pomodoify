@@ -4,7 +4,7 @@ import TimerCircle from '../components/Timer/TimerCircle';
 
 function TimerScreen(props) {
   return (
-    <Container>
+    <Container position="absolute" width="auto" height="auto" left="0" right="0" my="xxxxl">
       <Container mx="auto" textAlign="center" mt="xxxl" maxWidth="800px">
         <Row>
           <Col sm={6} p="lg">

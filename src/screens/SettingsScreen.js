@@ -5,9 +5,9 @@ function SettingsScreen(props) {
   const { deleteUser } = props;
 
   return (
-    <Container>
+    <Container position="absolute" width="auto" height="auto" left="0" right="0" my="xxxxl">
       <Heading textAlign="center" fontWeight="reg" p="0">Settings</Heading>
-      <Container maxWidth="480px" margin="auto" px="xl">
+      <Container maxWidth="480px" mx="auto" px="xl">
         <Heading type="h5" color="text.0" position="relative" display="inline-block" highlight zIndex="1">
           Pomodoro Timer
         </Heading>

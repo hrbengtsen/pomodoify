@@ -24,7 +24,7 @@ const toggle = (props) => {
   if (props.hidden) {
     return css`
       animation-name: ${FadeOut};
-      animation-duration: 0.6s;
+      animation-duration: 0.4s;
       animation-timing-function: ease;
       visibility: hidden;
     `;
@@ -32,7 +32,7 @@ const toggle = (props) => {
 
   return css`
     animation-name: ${FadeIn};
-    animation-duration: 0.6s;
+    animation-duration: 0.4s;
     animation-timing-function: ease;
     visibility: visible;
   `;
@@ -50,7 +50,7 @@ const SheetWrapper = styled.div`
   outline: 0;
   overflow-x: hidden;
   overflow-y: auto;
-  transition: visibility 0.6s ease;
+  transition: visibility 0.4s ease;
   ${props => toggle(props)}
 `;
 

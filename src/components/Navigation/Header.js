@@ -5,7 +5,7 @@ import Logo from '../../assets/logo.svg';
 function Header() {
   return (
     <Nav p="lg" position="fixed" width="100%" zIndex="1000">
-        <NavItem to="/" mr="auto">
+        <NavItem to="/home" mr="auto">
             <Image src={Logo} alt="Pomodoify Logo (Resembles a clock)" width="40px" />
         </NavItem>
 

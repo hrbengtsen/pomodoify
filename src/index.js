@@ -5,12 +5,15 @@ import App from './screens/App';
 import { theme, GlobalStyles } from './components/UI';
 import './assets/icons/fontawesome';
 import { ThemeProvider } from 'styled-components';
+import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     <GlobalStyles />
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </ThemeProvider>,
   document.getElementById('root')
 );
