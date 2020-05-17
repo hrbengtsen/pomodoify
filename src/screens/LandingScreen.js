@@ -48,7 +48,7 @@ function LandingScreen(props) {
         <Text textAlign="center">Create your account below (locally stored on device for now)</Text>
         <Container backgroundColor="bg.1" p="lg" borderRadius="md">
           <FormGroup>
-            <Label>What is your name? <Badge color="secondary" backgroundColor="transparent" p="0">{errors["username"]}</Badge></Label>
+            <Label>What is your name? <Badge color="danger" backgroundColor="transparent" p="0">{errors["username"]}</Badge></Label>
             <FormControl textAlign="left" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Your username..." />
           </FormGroup>
           <Container textAlign="center" mt="xxl">

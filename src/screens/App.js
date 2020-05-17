@@ -7,31 +7,22 @@ import SettingsScreen from './SettingsScreen';
 import Header from '../components/Navigation/Header';
 import Footer from '../components/Navigation/Footer';
 import { Route, Switch, useLocation } from 'react-router-dom';
-import PrivateRoute from '../components/Navigation/PrivateRoute';
-import BaseRoute from '../components/Navigation/BaseRoute';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import PrivateRoute from '../components/Routing/PrivateRoute';
+import BaseRoute from '../components/Routing/BaseRoute';
+import RouteTransitions from '../components/Routing/Transitions/RouteTransitions';
+import ScrollToTop from '../components/Routing/ScrollToTop';
 
 /*
   To-do:
-  - Dummy authentication (with isAuth route and User object in localstorage: What is your name? screen)
-  - Timer
+    - Timer
   - Goals
   - Achievements
+  - Home page (latest/streak)
   - Settings
   - Sound
   - Polish
   - Firebase integration
 */
-
-function ScrollToTop() {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-
-  return null;
-}
 
 function App() {
   const noUser = {
@@ -42,13 +33,17 @@ function App() {
   };
 
   const [user, setUser] = useState(noUser);
-  const [isAuth, setAuthentication] = useState(false);
+  const [isAuth, setAuth] = useState(true);
+
+  const location = useLocation();
 
   useEffect(() => {
     let storedUser = JSON.parse(localStorage.getItem('user'));
     if (storedUser) {
       setUser(storedUser);
-      setAuthentication(true);
+      
+    } else { 
+      setAuth(false); 
     }
   }, []);
 
@@ -61,44 +56,40 @@ function App() {
     }
     localStorage.setItem('user', JSON.stringify(user));
     setUser(user);
-    setAuthentication(true);
+    setAuth(true);
   }
 
   function deleteUser() {
     localStorage.removeItem('user');
     setUser(noUser);
-    setAuthentication(false);
+    setAuth(false);
   }
 
   const navigationRoutes = ['/home', '/timer', '/progression', '/settings'];
-
-  const location = useLocation();
 
   return (
     <>
       <ScrollToTop />
       <Route path={navigationRoutes} component={Header} />
-      <TransitionGroup>
-        <CSSTransition key={location.key} classNames="page" timeout={300}>
-          <Switch location={location}>
-            <BaseRoute isAuth={isAuth} exact path="/">
-              <LandingScreen addUser={addUser} />
-            </BaseRoute>
-            <PrivateRoute isAuth={isAuth} path="/home">
-              <UserScreen username={user.name} />
-            </PrivateRoute>
-            <PrivateRoute isAuth={isAuth} path="/timer">
-              <TimerScreen />
-            </PrivateRoute>
-            <PrivateRoute isAuth={isAuth} path="/progression">
-              <ProgressionScreen />
-            </PrivateRoute>
-            <PrivateRoute isAuth={isAuth} path="/settings">
-              <SettingsScreen deleteUser={deleteUser} />
-            </PrivateRoute>
-          </Switch>
-        </CSSTransition>
-      </TransitionGroup>
+      <RouteTransitions locationKey={location.key} {...location.state}>
+        <Switch location={location}>
+          <BaseRoute isAuth={isAuth} exact path="/">
+            <LandingScreen addUser={addUser} />
+          </BaseRoute>
+          <PrivateRoute isAuth={isAuth} path="/home">
+            <UserScreen username={user.name} />
+          </PrivateRoute>
+          <PrivateRoute isAuth={isAuth} path="/timer">
+            <TimerScreen />
+          </PrivateRoute>
+          <PrivateRoute isAuth={isAuth} path="/progression">
+            <ProgressionScreen />
+          </PrivateRoute>
+          <PrivateRoute isAuth={isAuth} path="/settings">
+            <SettingsScreen deleteUser={deleteUser} />
+          </PrivateRoute>
+        </Switch>
+      </RouteTransitions>
       <Route path={navigationRoutes} component={Footer} />
     </>
   );

@@ -46,7 +46,7 @@ const buttonStyles = (props) => css`
   &:focus {
     outline: 0;
     background-color: ${props => props.theme.colors.button[0]};
-    border-color: ${props => props.theme.colors.button[0]};
+    border-color: ${props => props.theme.colors.primary[0]};
     transform: ${props => props.theme.scale.hover};
   };
   &:active {

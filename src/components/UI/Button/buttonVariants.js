@@ -12,7 +12,7 @@ export const buttonVariants = {
       },
       '&:focus': {
         backgroundColor: 'primary.0',
-        borderColor: 'primary.0',
+        borderColor: 'text.0',
       }
     },
     secondary: {
@@ -27,7 +27,7 @@ export const buttonVariants = {
       },
       '&:focus': {
         backgroundColor: 'secondary.0',
-        borderColor: 'secondary.0'
+        borderColor: 'text.0'
       }
     },
     achievement: {
@@ -46,6 +46,20 @@ export const buttonVariants = {
       '&:focus': {
         backgroundColor: 'bg.1',
         color: 'text.0'
+      }
+    },
+    timer: {
+      backgroundColor: 'bg.0',
+      border: 'none',
+      borderRadius: 'circle',
+      p: 'md',
+      '&:hover': {
+        backgroundColor: 'bg.0',
+        color: 'text.1'
+      },
+      '&:focus': {
+        backgroundColor: 'bg.0',
+        color: 'text.1'
       }
     }
   }

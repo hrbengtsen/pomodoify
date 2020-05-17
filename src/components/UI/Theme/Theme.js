@@ -9,6 +9,9 @@ const theme = {
     secondary: [
       '#3DB0A5'
     ],
+    danger: [
+      '#F25E4C'
+    ],
     text: [
       '#887D6A',
       '#7C684B'

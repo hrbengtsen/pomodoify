@@ -1,4 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
+import { slideUpStyles } from '../Routing/Transitions/SlideUp';
+import { slideDownStyles } from '../Routing/Transitions/SlideDown';
 
 const GlobalStyles = createGlobalStyle`
   html {
@@ -25,7 +27,6 @@ const GlobalStyles = createGlobalStyle`
   body, #root {
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
   }
   h1, h2, h3, h4, h5 {
     font-family: ${props => props.theme.fonts.heading};
@@ -73,6 +74,8 @@ const GlobalStyles = createGlobalStyle`
       border: 0;
     }
   };
+  ${slideUpStyles}
+  ${slideDownStyles}
 `
 
 export default GlobalStyles;

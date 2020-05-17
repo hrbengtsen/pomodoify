@@ -18,8 +18,8 @@ const Badge = styled('span').withConfig({ shouldForwardProp })`
 `;
 
 Badge.defaultProps = {
-  color: 'white',
-  backgroundColor: 'blue.0',
+  color: 'text.0',
+  backgroundColor: 'bg.0',
   borderRadius: 'md',
   p: 'sm',
   fontWeight: 'bold',

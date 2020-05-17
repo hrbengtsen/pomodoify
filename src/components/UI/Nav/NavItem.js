@@ -8,10 +8,14 @@ const NavItem = styled(NavLink).withConfig({ shouldForwardProp })`
   border: none;
   transition: all ${props => props.theme.hoverTime} ease-in-out;
   cursor: pointer;
+  outline: 0;
   &:hover {
     text-decoration: none;
     color: ${props => props.theme.colors.text[1]};
     transform: ${props => props.theme.scale.hover};
+  };
+  &:focus {
+    background-color: ${props => props.theme.colors.primary[0]};
   };
   &:active {
     transform: ${props => props.theme.scale.active};
