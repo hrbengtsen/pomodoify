@@ -49,17 +49,37 @@ export const buttonVariants = {
       }
     },
     timer: {
+      backgroundColor: 'bg.1',
+      border: 'none',
+      borderRadius: 'circle',
+      p: '0',
+      m: '0',
+      '&:not(.active):hover': {
+        backgroundColor: 'bg.1'
+      },
+      '&:not(.active):focus': {
+        backgroundColor: 'bg.1'
+      },
+      '&.active': {
+        backgroundColor: 'button.0'
+      }
+    },
+    timerControl: {
       backgroundColor: 'bg.0',
       border: 'none',
       borderRadius: 'circle',
       p: 'md',
-      '&:hover': {
+      '&:not(.active):hover': {
         backgroundColor: 'bg.0',
         color: 'text.1'
       },
-      '&:focus': {
+      '&:not(.active):focus': {
         backgroundColor: 'bg.0',
         color: 'text.1'
+      },
+      '&.active': {
+        backgroundColor: 'bg.0',
+        color: 'primary.0'
       }
     }
   }

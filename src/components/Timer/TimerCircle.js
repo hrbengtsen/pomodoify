@@ -4,11 +4,11 @@ import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-pro
 import 'react-circular-progressbar/dist/styles.css';
 
 function TimerCircle(props) {
-  const { progress } = props;
+  const { progress, min, sec, state, iteration, active, toggleTimer } = props;
 
   return (
-    <Container width={["225px", "300px"]} margin="auto">
-      <Button borderRadius="circle" backgroundColor="bg.1" p="0" m="0" border="none">
+    <Container width={["225px", "300px"]} mx="auto">
+      <Button variant="timer" className={active ? 'active' : ''} onClick={() => toggleTimer()}>
         <CircularProgressbarWithChildren 
           value={progress} 
           strokeWidth={3}
@@ -22,9 +22,9 @@ function TimerCircle(props) {
             trailColor: '#7C684B',
             backgroundColor: '#EDE1CA',
         })}>
-          <Text m="0">Pomodoro</Text>
-          <Heading fontWeight="reg" p="0">25:00</Heading>
-          <Text m="0">0/4</Text>
+          <Text m="0">{state}</Text>
+          <Heading fontWeight="reg" p="0">{min}:{sec}</Heading>
+          <Text m="0">Set: {iteration}/4</Text>
         </CircularProgressbarWithChildren>
       </Button>
     </Container>
