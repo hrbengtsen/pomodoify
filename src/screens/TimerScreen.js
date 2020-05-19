@@ -1,177 +1,239 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { Container, Button, FormGroup, FormControl, Label, Icon, Text } from '../components/UI';
 import TimerCircle from '../components/Timer/TimerCircle';
+
+const changeState = (state, nextState) => {
+  let time = 0;
+  let stayActive = false;
+  let nextIteration = state.iteration;
+
+  switch (nextState) {
+    case 'Pomodoro':
+    default:
+      time = state.times.pomodoro;
+      nextIteration = nextIteration === 4 ? 0 : nextIteration;
+      break;
+
+    case 'Break':
+      time = state.times.break;
+      stayActive = true;
+      nextIteration++;
+      break;
+
+    case 'Long break':
+      time = state.times.longBreak;
+      stayActive = true;
+      nextIteration++;
+      break;
+  }
+
+  if (state.repeat) stayActive = true;
+
+  return {
+    ...state,
+    timeLeft: time,
+    timePassed: 0,
+    totalTime: time,
+    active: stayActive,
+    state: nextState,
+    iteration: nextIteration
+  };
+}
+
+const reset = (state, type) => {
+  switch (type) {
+    case 'timer':
+    default: 
+      let time = state.times.pomodoro;
+      if (state.state === 'Break') time = state.times.break
+      else if (state.state === 'Long break') time = state.times.longBreak
+
+      return {
+        ...state,
+        timeLeft: time,
+        timePassed: 0,
+        totalTime: time,
+        active: false
+      };
+
+    case 'set':
+      return {
+        ...state,
+        timeLeft: state.times.pomodoro,
+        timePassed: 0,
+        totalTime: state.times.pomodoro,
+        active: false,
+        state: 'Pomodoro',
+        iteration: 0
+      };
+  }
+}
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'Pomodoro':
+      return state.iteration === 3 ? changeState(state, 'Long break') : changeState(state, 'Break');
+
+    case 'Break':
+    case 'Long break':
+      return changeState(state, 'Pomodoro');
+
+    case 'toggleTimer':
+      return {
+        ...state,
+        active: !state.active
+      };
+
+    case 'toggleRepeat':
+      return {
+        ...state,
+        repeat: !state.repeat
+      };
+
+    case 'resetTimer':
+      return reset(state, 'timer');
+
+    case 'resetSet':
+      return reset(state, 'set');
+
+    case 'tick':
+      return {
+        ...state,
+        timeLeft: state.timeLeft - 1,
+        timePassed: state.totalTime - (state.timeLeft - 1)
+      };
+
+    case 'save':
+      localStorage.setItem('timer', JSON.stringify(state));
+      return state;
+
+    case 'sync':
+      let storedTimer = JSON.parse(localStorage.getItem('timer'));
+      let storedSettings = JSON.parse(localStorage.getItem('user')).settings;
+      if (storedTimer && storedSettings) {
+        if (storedTimer.times.pomodoro !== storedSettings.pomodoro * 60 || storedTimer.times.break !== storedSettings.break * 60 || storedTimer.times.longBreak !== storedSettings.longBreak * 60) {
+          return {
+            ...storedTimer,
+            timeLeft: storedSettings.pomodoro * 60,
+            timePassed: 0,
+            totalTime: storedSettings.pomodoro * 60,
+            times: {
+              pomodoro: storedSettings.pomodoro * 60,
+              break: storedSettings.break * 60,
+              longBreak: storedSettings.longBreak * 60
+            },
+            active: false,
+            state: 'Pomodoro',
+            iteration: 0,
+            repeat: false
+          };
+        }
+        return storedTimer;
+      }
+      return state;
+
+    default:
+      throw new Error('Unknown timer action.type');
+  }
+}
 
 function TimerScreen(props) {
   const { userSettings } = props;
 
-  // make this state (to remove memory leak + enable persistence)
-  const convertedSettings = {
-    pomodoro: userSettings.pomodoro * 60,
-    break: userSettings.break * 60,
-    longBreak: userSettings.longBreak * 60
-  }
-
-  /*useEffect(() => { - reload persistence
-    if (userSettings === defaultSettings) {
-      let storedSettings = JSON.parse(localStorage.getItem('user')).settings;
-      setSettings(storedSettings);
-    }
-  }, [userSettings, defaultSettings]);*/
-
-  const [timer, setTimer] = useState({
-    timeLeft: convertedSettings.pomodoro,
+  const [timerState, timerDispatch] = useReducer(reducer, {
+    timeLeft: userSettings.pomodoro * 60,
     timePassed: 0,
-    totalTime: convertedSettings.pomodoro,
+    totalTime: userSettings.pomodoro * 60,
+    times: {
+      pomodoro: userSettings.pomodoro * 60,
+      break: userSettings.break * 60,
+      longBreak: userSettings.longBreak * 60
+    },
     active: false,
     state: 'Pomodoro',
     iteration: 0,
     repeat: false,
   });
   const [timerIcon, setTimerIcon] = useState("play-circle");
-  const [countdown, setCountdown] = useState(null);
 
-  const toggleTimer = useCallback((isActive = timer.active) => {
-    if (!isActive) {
-      setTimer(prevTimer => ({
-        ...prevTimer,
-        active: true
-      }));
-      setCountdown(setInterval(() => {
-        setTimer(prevTimer => ({
-          ...prevTimer,
-          timeLeft: prevTimer.timeLeft - 1,
-          timePassed: prevTimer.totalTime - (prevTimer.timeLeft - 1)
-        }));
-      }, 1000));
-    } 
-    else {
-      setTimer(prevTimer => ({
-        ...prevTimer,
-        active: false
-      }));
-      setCountdown(clearInterval(countdown));
+  useEffect(() => {
+    timerDispatch({ type: 'sync' });
+  }, []);
+
+  useEffect(() => {
+    timerDispatch({ type: 'save' });
+  }, [timerState]);
+
+  useEffect(() => {
+    let interval = null;
+    if (timerState.active) {
+      interval = setInterval(() => {
+        timerDispatch({ type: 'tick' });
+      }, 1000);
     }
-  }, [timer.active, countdown]);
+    else if (!timerState.active) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [timerState.active]);
+
+  useEffect(() => {
+    setTimerIcon(timerState.active ? "pause-circle" : "play-circle");
+  }, [timerState.active]);
+
+  useEffect(() => {
+    if (timerState.timeLeft === 0) {
+      timerDispatch({ type: timerState.state });
+    }
+  }, [timerState.timeLeft, timerState.state]);
+
+  const toggleTimer = () => {
+    timerDispatch({ type: 'toggleTimer' });
+  }
 
   const toggleRepeat = () => {
-    if (!timer.repeat) {
-      setTimer(prevTimer => ({
-        ...prevTimer,
-        repeat: true
-      }));
-    }
-    else {
-      setTimer(prevTimer => ({
-        ...prevTimer,
-        repeat: false
-      }));
-    }
+    timerDispatch({ type: 'toggleRepeat' });
   }
 
-  const resetTimer = useCallback((state) => {
-    setCountdown(clearInterval(countdown));
-    let time = 0;
-
-    switch (state) {
-      case 'Pomodoro':
-      default:
-        time = convertedSettings.pomodoro;
-        break;
-
-      case 'Break':
-        time = convertedSettings.break;
-        break;
-
-      case 'Long break':
-        time = convertedSettings.longBreak;
-        break;
-    }
-
-    setTimer(prevTimer => ({
-      ...prevTimer,
-      timeLeft: time,
-      timePassed: 0,
-      totalTime: time,
-      active: false,
-      state: state
-    }));
-  }, [countdown]);
+  const resetTimer = () => {
+    timerDispatch({ type: 'resetTimer' });
+  }
 
   const resetSet = () => {
-    setTimer(prevTimer => ({
-      ...prevTimer,
-      iteration: 0
-    }));
-    resetTimer('Pomodoro');
+    timerDispatch({ type: 'resetSet' });
   }
 
-  useEffect(() => {
-    setTimerIcon(timer.active ? "pause-circle" : "play-circle");
-  }, [timer.active]);
-
-  useEffect(() => {
-    if (timer.timeLeft === 0) {
-      switch (timer.state) {
-        case 'Pomodoro':
-        default:
-          setTimer(prevTimer => ({
-            ...prevTimer,
-            iteration: prevTimer.iteration + 1
-          }));
-          timer.iteration === 3 ? resetTimer('Long break') : resetTimer('Break');
-          // Provide isActive = false to play timer
-          toggleTimer(false);
-          break;
-  
-        case 'Break':
-          resetTimer('Pomodoro');
-          timer.repeat ? toggleTimer(false) : toggleTimer();
-          break;
-
-        case 'Long break':
-          setTimer(prevTimer => ({
-            ...prevTimer,
-            iteration: 0
-          }));
-          resetTimer('Pomodoro');
-          timer.repeat ? toggleTimer(false) : toggleTimer();
-          break;
-      }
-    }
-  }, [timer.timeLeft, timer.state, timer.repeat, timer.iteration, resetTimer, toggleTimer]);
-
   function getMinutes() {
-    if (timer.timeLeft === 3600) {
+    if (timerState.timeLeft === 3600) {
       return "60";
     }
-    return ("0" + Math.floor((timer.timeLeft % 3600) / 60)).slice(-2);
+    return ("0" + Math.floor((timerState.timeLeft % 3600) / 60)).slice(-2);
   }
 
   function getSeconds() {
-    return ("0" + (timer.timeLeft % 60)).slice(-2);
+    return ("0" + (timerState.timeLeft % 60)).slice(-2);
   }
 
   return (
     <Container position="absolute" width="auto" height="auto" left="0" right="0" my="xxxxl">
       <Container mx="auto" textAlign="center" maxWidth="480px">
-        <Button variant="timerControl" onClick={() => resetTimer(timer.state)}>
+        <Button variant="timerControl" onClick={() => resetTimer()}>
           <Icon icon="redo-alt" size="3x" style={{ verticalAlign: 'middle' }} />
           <Text mb="0">Reset</Text>
         </Button>
         <Button variant="timerControl" onClick={() => toggleTimer()}>
           <Icon icon={timerIcon} size="3x" style={{ verticalAlign: 'middle' }} />
-          <Text mb="0">{timer.active ? 'Pause' : 'Start'}</Text>
+          <Text mb="0">{timerState.active ? 'Pause' : 'Start'}</Text>
         </Button>
-        <Button variant="timerControl" className={timer.repeat ? 'active' : ''} onClick={() => toggleRepeat()}>
+        <Button variant="timerControl" className={timerState.repeat ? 'active' : ''} onClick={() => toggleRepeat()}>
          <Icon icon="sync-alt" size="3x" style={{ verticalAlign: 'middle' }} />
          <Text mb="0">Repeat</Text>
         </Button>
       </Container>
       <Container textAlign="center" mt="xxxl">
-        <TimerCircle min={getMinutes()} sec={getSeconds()} state={timer.state} iteration={timer.iteration} active={timer.active} toggleTimer={toggleTimer} progress={(timer.timePassed / timer.totalTime) * 100} />
+        <TimerCircle min={getMinutes()} sec={getSeconds()} state={timerState.state} iteration={timerState.iteration} active={timerState.active} toggleTimer={toggleTimer} progress={(timerState.timePassed / timerState.totalTime) * 100} />
       </Container>
-      {timer.iteration > 0 && 
+      {timerState.iteration > 0 && 
       <Container mx="auto" textAlign="center" mt="xxxl">
         <Button fontWeight="bold" onClick={() => resetSet()}>Reset set</Button>
       </Container>}

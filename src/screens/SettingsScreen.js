@@ -18,7 +18,7 @@ function SettingsScreen(props) {
     let errors = {};
     let settingsAreValid = true;
 
-    if (settings.pomodoro > 60 || settings.pomodoro < 1) {
+    if (settings.pomodoro > 60 || settings.pomodoro < 1 || !/^[0-9]+$/.test(settings.pomodoro)) {
       settingsAreValid = false;
       errors["pomodoro"] = "Only 1-60 min";
     }
@@ -28,7 +28,7 @@ function SettingsScreen(props) {
       errors["pomodoro"] = "Must be number";
     }
 
-    if (settings.break > 60 || settings.break < 1) {
+    if (settings.break > 60 || settings.break < 1 || !/^[0-9]+$/.test(settings.break)) {
       settingsAreValid = false;
       errors["break"] = "Only 1-60 min";
     }
@@ -38,7 +38,7 @@ function SettingsScreen(props) {
       errors["break"] = "Must be number";
     }
 
-    if (settings.longBreak > 60 || settings.longBreak < 1) {
+    if (settings.longBreak > 60 || settings.longBreak < 1 || !/^[0-9]+$/.test(settings.longBreak)) {
       settingsAreValid = false;
       errors["longBreak"] = "Only 1-60 min";
     }
@@ -59,6 +59,7 @@ function SettingsScreen(props) {
   }
 
   function resetSettings() {
+    setErrors({});
     setSettings(defaultSettings);
     updateSettings(defaultSettings);
   }

@@ -17,7 +17,7 @@ import ScrollToTop from '../components/Routing/ScrollToTop';
   - Rewards
   - Achievements
   - Home page (latest/streak)
-    - Settings
+        - Pause timer when not on timer page (implement this)
   - Sound
   - Relevant toasts (notifications like: Saved settings!)
   - Polish
