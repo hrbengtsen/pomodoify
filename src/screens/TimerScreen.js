@@ -1,16 +1,32 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Container, Button, FormGroup, FormControl, Label, Icon } from '../components/UI';
+import { Container, Button, FormGroup, FormControl, Label, Icon, Text } from '../components/UI';
 import TimerCircle from '../components/Timer/TimerCircle';
 
 function TimerScreen(props) {
+  const { userSettings } = props;
+
+  // make this state (to remove memory leak + enable persistence)
+  const convertedSettings = {
+    pomodoro: userSettings.pomodoro * 60,
+    break: userSettings.break * 60,
+    longBreak: userSettings.longBreak * 60
+  }
+
+  /*useEffect(() => { - reload persistence
+    if (userSettings === defaultSettings) {
+      let storedSettings = JSON.parse(localStorage.getItem('user')).settings;
+      setSettings(storedSettings);
+    }
+  }, [userSettings, defaultSettings]);*/
+
   const [timer, setTimer] = useState({
-    timeLeft: 6,
+    timeLeft: convertedSettings.pomodoro,
     timePassed: 0,
-    totalTime: 6,
+    totalTime: convertedSettings.pomodoro,
     active: false,
     state: 'Pomodoro',
     iteration: 0,
-    loop: false,
+    repeat: false,
   });
   const [timerIcon, setTimerIcon] = useState("play-circle");
   const [countdown, setCountdown] = useState(null);
@@ -38,17 +54,17 @@ function TimerScreen(props) {
     }
   }, [timer.active, countdown]);
 
-  const toggleLoop = () => {
-    if (!timer.loop) {
+  const toggleRepeat = () => {
+    if (!timer.repeat) {
       setTimer(prevTimer => ({
         ...prevTimer,
-        loop: true
+        repeat: true
       }));
     }
     else {
       setTimer(prevTimer => ({
         ...prevTimer,
-        loop: false
+        repeat: false
       }));
     }
   }
@@ -60,15 +76,15 @@ function TimerScreen(props) {
     switch (state) {
       case 'Pomodoro':
       default:
-        time = 6;
+        time = convertedSettings.pomodoro;
         break;
 
       case 'Break':
-        time = 4;
+        time = convertedSettings.break;
         break;
 
       case 'Long break':
-        time = 5;
+        time = convertedSettings.longBreak;
         break;
     }
 
@@ -110,7 +126,7 @@ function TimerScreen(props) {
   
         case 'Break':
           resetTimer('Pomodoro');
-          timer.loop ? toggleTimer(false) : toggleTimer();
+          timer.repeat ? toggleTimer(false) : toggleTimer();
           break;
 
         case 'Long break':
@@ -119,13 +135,16 @@ function TimerScreen(props) {
             iteration: 0
           }));
           resetTimer('Pomodoro');
-          timer.loop ? toggleTimer(false) : toggleTimer();
+          timer.repeat ? toggleTimer(false) : toggleTimer();
           break;
       }
     }
-  }, [timer.timeLeft, timer.state, timer.loop, timer.iteration, resetTimer, toggleTimer]);
+  }, [timer.timeLeft, timer.state, timer.repeat, timer.iteration, resetTimer, toggleTimer]);
 
   function getMinutes() {
+    if (timer.timeLeft === 3600) {
+      return "60";
+    }
     return ("0" + Math.floor((timer.timeLeft % 3600) / 60)).slice(-2);
   }
 
@@ -136,14 +155,17 @@ function TimerScreen(props) {
   return (
     <Container position="absolute" width="auto" height="auto" left="0" right="0" my="xxxxl">
       <Container mx="auto" textAlign="center" maxWidth="480px">
-        <Button variant="timerControl" onClick={() => toggleTimer()}>
-          <Icon icon={timerIcon} size="3x" style={{ verticalAlign: 'middle' }} />
-        </Button>
         <Button variant="timerControl" onClick={() => resetTimer(timer.state)}>
           <Icon icon="redo-alt" size="3x" style={{ verticalAlign: 'middle' }} />
+          <Text mb="0">Reset</Text>
         </Button>
-        <Button variant="timerControl" className={timer.loop ? 'active' : ''} onClick={() => toggleLoop()}>
+        <Button variant="timerControl" onClick={() => toggleTimer()}>
+          <Icon icon={timerIcon} size="3x" style={{ verticalAlign: 'middle' }} />
+          <Text mb="0">{timer.active ? 'Pause' : 'Start'}</Text>
+        </Button>
+        <Button variant="timerControl" className={timer.repeat ? 'active' : ''} onClick={() => toggleRepeat()}>
          <Icon icon="sync-alt" size="3x" style={{ verticalAlign: 'middle' }} />
+         <Text mb="0">Repeat</Text>
         </Button>
       </Container>
       <Container textAlign="center" mt="xxxl">

@@ -44,7 +44,7 @@ const Checkbox = (props) => (
   <CheckboxContainer>
     <HiddenCheckbox checked={props.checked} {...props} />
     <StyledCheckbox checked={props.checked} {...props}>
-       <Icon icon="check" style={{ visibility: (props.checked ? 'visisble' : 'hidden')}} />
+       <Icon icon="check" style={{ visibility: (props.checked ? 'visible' : 'hidden')}} />
     </StyledCheckbox>
   </CheckboxContainer>
 );

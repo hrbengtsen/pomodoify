@@ -22,7 +22,7 @@ function TimerCircle(props) {
             trailColor: '#7C684B',
             backgroundColor: '#EDE1CA',
         })}>
-          <Text m="0">{state}</Text>
+          <Text m="0" fontWeight="bold">{state}</Text>
           <Heading fontWeight="reg" p="0">{min}:{sec}</Heading>
           <Text m="0">Set: {iteration}/4</Text>
         </CircularProgressbarWithChildren>

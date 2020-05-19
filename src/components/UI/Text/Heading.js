@@ -8,7 +8,7 @@ const highlight = (props) => (
     &::after {
       content: "";
       position: absolute;
-      width: 225px;
+      width: 250px;
       background: #FCEDA2;
       left: 0;
       bottom: .5em;
@@ -19,7 +19,7 @@ const highlight = (props) => (
 
     @media (max-width: ${props => props.theme.breakpoints[0]}) {
       &::after {
-        width: 175px;
+        width: 200px;
       };
     }
   `

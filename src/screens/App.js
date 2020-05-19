@@ -14,12 +14,12 @@ import ScrollToTop from '../components/Routing/ScrollToTop';
 
 /*
   To-do:
-    - Timer
-  - Goals
+  - Rewards
   - Achievements
   - Home page (latest/streak)
-  - Settings
+    - Settings
   - Sound
+  - Relevant toasts (notifications like: Saved settings!)
   - Polish
   - Firebase integration
 */
@@ -27,7 +27,14 @@ import ScrollToTop from '../components/Routing/ScrollToTop';
 function App() {
   const noUser = {
     name: 'No user',
-    settings: {},
+    settings: {
+      pomodoro: 25, // 1500 sec
+      break: 5, // 300 sec
+      longBreak: 15, // 900 sec
+      sound: 'Sound 1',
+      volume: 50,
+      unfocusPause: false
+    },
     achievements: {},
     rewards: {}
   };
@@ -41,20 +48,20 @@ function App() {
     let storedUser = JSON.parse(localStorage.getItem('user'));
     if (storedUser) {
       setUser(storedUser);
-      
     } else { 
       setAuth(false); 
     }
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem('user', JSON.stringify(user));
+  }, [user]);
+
   function addUser(username) {
     let user = {
-      name: username,
-      settings: {},
-      achievements: {},
-      rewards: {}
+      ...noUser,
+      name: username
     }
-    localStorage.setItem('user', JSON.stringify(user));
     setUser(user);
     setAuth(true);
   }
@@ -63,6 +70,13 @@ function App() {
     localStorage.removeItem('user');
     setUser(noUser);
     setAuth(false);
+  }
+
+  function updateSettings(newSettings) {
+    setUser({
+      ...user,
+      settings: newSettings
+    });
   }
 
   const navigationRoutes = ['/home', '/timer', '/progression', '/settings'];
@@ -80,13 +94,13 @@ function App() {
             <UserScreen username={user.name} />
           </PrivateRoute>
           <PrivateRoute isAuth={isAuth} path="/timer">
-            <TimerScreen />
+            <TimerScreen userSettings={user.settings} />
           </PrivateRoute>
           <PrivateRoute isAuth={isAuth} path="/progression">
             <ProgressionScreen />
           </PrivateRoute>
           <PrivateRoute isAuth={isAuth} path="/settings">
-            <SettingsScreen deleteUser={deleteUser} />
+            <SettingsScreen userSettings={user.settings} defaultSettings={noUser.settings} deleteUser={deleteUser} updateSettings={updateSettings} />
           </PrivateRoute>
         </Switch>
       </RouteTransitions>
