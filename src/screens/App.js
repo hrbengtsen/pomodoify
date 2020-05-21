@@ -6,7 +6,7 @@ import ProgressionScreen from './ProgressionScreen';
 import SettingsScreen from './SettingsScreen';
 import Header from '../components/Navigation/Header';
 import Footer from '../components/Navigation/Footer';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Switch, useLocation, Redirect } from 'react-router-dom';
 import PrivateRoute from '../components/Routing/PrivateRoute';
 import BaseRoute from '../components/Routing/BaseRoute';
 import RouteTransitions from '../components/Routing/Transitions/RouteTransitions';
@@ -25,7 +25,7 @@ import ScrollToTop from '../components/Routing/ScrollToTop';
 */
 
 function App() {
-  const noUser = {
+  const defaultUser = {
     name: 'No user',
     settings: {
       pomodoro: 25, // 1500 sec
@@ -39,8 +39,7 @@ function App() {
     rewards: {}
   };
 
-  const [user, setUser] = useState(noUser);
-  const [isAuth, setAuth] = useState(true);
+  const [user, setUser] = useState(null);
 
   const location = useLocation();
 
@@ -48,8 +47,6 @@ function App() {
     let storedUser = JSON.parse(localStorage.getItem('user'));
     if (storedUser) {
       setUser(storedUser);
-    } else { 
-      setAuth(false); 
     }
   }, []);
 
@@ -59,17 +56,15 @@ function App() {
 
   function addUser(username) {
     let user = {
-      ...noUser,
+      ...defaultUser,
       name: username
     }
     setUser(user);
-    setAuth(true);
   }
 
   function deleteUser() {
     localStorage.removeItem('user');
-    setUser(noUser);
-    setAuth(false);
+    setUser(null);
   }
 
   function updateSettings(newSettings) {
@@ -83,28 +78,37 @@ function App() {
 
   return (
     <>
-      <ScrollToTop />
-      <Route path={navigationRoutes} component={Header} />
-      <RouteTransitions locationKey={location.key} {...location.state}>
-        <Switch location={location}>
-          <BaseRoute isAuth={isAuth} exact path="/">
+      {user ? (
+        <>
+          <ScrollToTop />
+          <Route path={navigationRoutes} component={Header} />
+          <RouteTransitions locationKey={location.key} {...location.state}>
+            <Switch location={location}>
+              <Route path="/home">
+                <UserScreen username={user.name} />
+              </Route>
+              <Route path="/timer">
+                <TimerScreen userSettings={user.settings} />
+              </Route>
+              <Route path="/progression">
+                <ProgressionScreen />
+              </Route>
+              <Route path="/settings">
+                <SettingsScreen userSettings={user.settings} defaultSettings={defaultUser.settings} deleteUser={deleteUser} updateSettings={updateSettings} />
+              </Route>
+              <Redirect to="/home" />
+            </Switch>
+          </RouteTransitions>
+          <Route path={navigationRoutes} component={Footer} />
+        </>
+      ) : (
+        <>
+          <BaseRoute user={user} exact path="/">
             <LandingScreen addUser={addUser} />
           </BaseRoute>
-          <PrivateRoute isAuth={isAuth} path="/home">
-            <UserScreen username={user.name} />
-          </PrivateRoute>
-          <PrivateRoute isAuth={isAuth} path="/timer">
-            <TimerScreen userSettings={user.settings} />
-          </PrivateRoute>
-          <PrivateRoute isAuth={isAuth} path="/progression">
-            <ProgressionScreen />
-          </PrivateRoute>
-          <PrivateRoute isAuth={isAuth} path="/settings">
-            <SettingsScreen userSettings={user.settings} defaultSettings={noUser.settings} deleteUser={deleteUser} updateSettings={updateSettings} />
-          </PrivateRoute>
-        </Switch>
-      </RouteTransitions>
-      <Route path={navigationRoutes} component={Footer} />
+          <Redirect to="/" />
+        </>
+      )}
     </>
   );
 }

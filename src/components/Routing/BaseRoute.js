@@ -1,17 +1,17 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-function BaseRoute({ children, isAuth, ...rest }) {
+function BaseRoute({ children, user, ...rest }) {
     return (
       <Route
         {...rest}
         render={({ location }) =>
-          !isAuth ? (
+          !user ? (
             children
           ) : (
             <Redirect
               to={{
-                pathname: "/home",
+                pathname: "/",
                 state: { from: location }
               }}
             />
