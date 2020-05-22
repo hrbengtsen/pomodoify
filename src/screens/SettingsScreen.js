@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container, Heading, Button, FormGroup, FormControl, Row, Col, Text, Checkbox, Label, Badge } from '../components/UI';
+import { useUser } from '../hooks/useUser';
 
-function SettingsScreen(props) {
-  const { userSettings, defaultSettings, deleteUser, updateSettings } = props;
+function SettingsScreen() {
+  const { user, defaultUser, deleteUser, updateSettings } = useUser();
 
-  const [settings, setSettings] = useState(userSettings);
+  const [settings, setSettings] = useState(user.settings);
   const [errors, setErrors] = useState({});
-
-  useEffect(() => {
-    if (userSettings === defaultSettings) {
-      let storedSettings = JSON.parse(localStorage.getItem('user')).settings;
-      setSettings(storedSettings);
-    }
-  }, [userSettings, defaultSettings]);
 
   function handleValidation() {
     let errors = {};
@@ -60,8 +54,8 @@ function SettingsScreen(props) {
 
   function resetSettings() {
     setErrors({});
-    setSettings(defaultSettings);
-    updateSettings(defaultSettings);
+    setSettings(defaultUser.settings);
+    updateSettings(defaultUser.settings);
   }
 
   return (

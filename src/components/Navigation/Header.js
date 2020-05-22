@@ -1,14 +1,21 @@
 import React from 'react';
-import { Nav, NavItem, Icon, Image } from '../UI';
+import { Nav, NavItem, Icon, Image, Text } from '../UI';
 import Logo from '../../assets/logo.svg';
 import { slideDown } from '../Routing/Transitions/SlideDown';
+import { useTimer } from '../../hooks/useTimer';
+import { getMinutes } from '../../utils/getMinutes';
+import { getSeconds } from '../../utils/getSeconds';
 
 function Header() {
+  const { timer } = useTimer();
+
   return (
     <Nav p="lg" position="fixed" width="100%" zIndex="1000">
         <NavItem to={{ pathname: "/home", state: slideDown }} mr="auto" width="40px" height="40px">
             <Image src={Logo} alt="Pomodoify Logo (Resembles a clock)" width="40px" />
         </NavItem>
+
+        <Text>{getMinutes(timer.timeLeft)}:{getSeconds(timer.timeLeft)}</Text>
 
         <Nav p="0" hide="sm">
           <NavItem to={{ pathname: "/timer", state: slideDown }} borderRadius="circle" backgroundColor="bg.1" p="md" mr="md" width="40px" height="40px" textAlign="center" fontSize="1.5em">

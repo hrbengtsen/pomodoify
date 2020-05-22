@@ -4,7 +4,7 @@ import ProgressBar from '../components/Progression/Progressbar';
 import SetGoalSheet from '../components/Sheets/SetGoalSheet';
 import AchievementSheet from '../components/Sheets/AchievementSheet';
 
-function ProgressionScreen(props) {
+function ProgressionScreen() {
   return (
     <Container position="absolute" width="auto" height="auto" left="0" right="0" my="xxxxl">
       <Heading textAlign="center" fontWeight="reg" p="0">Progression</Heading>

@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './screens/App';
+import App from './App';
 import { theme, GlobalStyles } from './components/UI';
 import './assets/icons/fontawesome';
 import { ThemeProvider } from 'styled-components';
+import UserProvider from './contexts/UserContext';
 import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 
@@ -12,7 +13,9 @@ ReactDOM.render(
   <ThemeProvider theme={theme}>
     <GlobalStyles />
     <BrowserRouter>
-      <App />
+      <UserProvider>
+        <App />
+      </UserProvider>
     </BrowserRouter>
   </ThemeProvider>,
   document.getElementById('root')

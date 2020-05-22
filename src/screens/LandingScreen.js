@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Container, Heading, FormGroup, FormControl, Label, Image, Text, Button, Badge } from '../components/UI';
 import Logo from '../assets/logo.svg';
+import { useUser } from '../hooks/useUser';
 
-function LandingScreen(props) {
+function LandingScreen() {
   const [username, setUsername] = useState("");
   const [errors, setErrors] = useState({});
 
-  const { addUser } = props;
+  const { addUser } = useUser();
 
   function handleValidation() {
     let errors = {};

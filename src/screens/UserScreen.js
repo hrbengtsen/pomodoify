@@ -1,13 +1,14 @@
 import React from 'react';
 import { Container, Heading, RouterButton, Text, Icon } from '../components/UI';
+import { useUser } from '../hooks/useUser';
 
-function UserScreen(props) {
-  const { username } = props;
+function UserScreen() {
+  const { user } = useUser();
 
   return (
     <Container position="absolute" width="auto" height="auto" left="0" right="0" my="xxxxl">
       <Heading textAlign="center" fontWeight="reg" p="0" px="xl">Pomodoify</Heading>
-      <Heading type="h5" textAlign="center" fontWeight="reg" px="xl">Welcome back {username}! Ready to get to work?</Heading>
+      <Heading type="h5" textAlign="center" fontWeight="reg" px="xl">Welcome back {user.name}! Ready to get to work?</Heading>
       <Container textAlign="center" mt="xxxl">
         <RouterButton to="/timer" m="0" mr="xl" variant="primary">Start a timer</RouterButton>
         <RouterButton to="/progression" m="0" ml="xl" fontWeight="bold">Check progress</RouterButton>
