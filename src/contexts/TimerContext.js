@@ -25,15 +25,20 @@ function TimerProvider({ children }) {
   
   useEffect(() => {
     timerDispatch({ type: 'sync' });
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     timerDispatch({ type: 'save' });
   }, [timer]);
 
   useEffect(() => {
-    document.title = 'Pomodoify - ' + getMinutes(timer.timeLeft) + ":" + getSeconds(timer.timeLeft);
-  }, [timer.timeLeft]);
+    if (timer.active) {
+      document.title = `${getMinutes(timer.timeLeft)}:${getSeconds(timer.timeLeft)} (${timer.state}) - Pomodoify`;
+    }
+    else {
+      document.title = 'Pomodoify'
+    }
+  }, [timer.active, timer.state, timer.timeLeft]);
 
   useEffect(() => {
     let interval = null;

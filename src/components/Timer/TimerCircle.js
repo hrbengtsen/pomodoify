@@ -7,7 +7,7 @@ function TimerCircle(props) {
   const { progress, min, sec, state, iteration, active, toggleTimer } = props;
 
   return (
-    <Container width={["225px", "300px"]} mx="auto">
+    <Container textAlign="center" mt="xxxl">
       <Button variant="timer" className={active ? 'active' : ''} onClick={() => toggleTimer()}>
         <CircularProgressbarWithChildren 
           value={progress} 

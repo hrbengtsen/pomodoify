@@ -12,8 +12,7 @@ function UserProvider({ children }) {
       break: 5,
       longBreak: 15,
       sound: 'Sound 1',
-      volume: 50,
-      unfocusPause: false
+      volume: 50
     },
     achievements: {},
     rewards: {}
@@ -37,6 +36,7 @@ function UserProvider({ children }) {
       name: username
     }
     setUser(user);
+    history.push('/home');
   }
 
   function deleteUser() {
@@ -45,9 +45,10 @@ function UserProvider({ children }) {
     history.push('/');
   }
 
-  function updateSettings(newSettings) {
+  function updateUser(newName, newSettings) {
     setUser({
       ...user,
+      name: newName,
       settings: newSettings
     });
   }
@@ -58,7 +59,7 @@ function UserProvider({ children }) {
       defaultUser,
       addUser,
       deleteUser,
-      updateSettings
+      updateUser
     }}>
       {children}
     </UserContext.Provider>

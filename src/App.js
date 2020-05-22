@@ -8,7 +8,6 @@ import UnAuthApp from './app/UnAuthApp';
   - Rewards
   - Achievements
   - Home page (latest/streak)
-        - Pause timer when not on timer page (implement this)
   - Sound
   - Relevant toasts (notifications like: Saved settings!)
   - Polish

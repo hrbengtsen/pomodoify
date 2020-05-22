@@ -15,7 +15,7 @@ function Timer() {
 
   return (
     <>
-      <Container mx="auto" textAlign="center" maxWidth="480px">
+      <Container mx="auto" textAlign="center">
         <Button variant="timerControl" onClick={() => resetTimer()}>
           <Icon icon="redo-alt" size="3x" style={{ verticalAlign: 'middle' }} />
           <Text mb="0">Reset</Text>
@@ -29,9 +29,7 @@ function Timer() {
         <Text mb="0">Repeat</Text>
         </Button>
       </Container>
-      <Container textAlign="center" mt="xxxl">
-        <TimerCircle min={getMinutes(timer.timeLeft)} sec={getSeconds(timer.timeLeft)} state={timer.state} iteration={timer.iteration} active={timer.active} toggleTimer={toggleTimer} progress={(timer.timePassed / timer.totalTime) * 100} />
-      </Container>
+      <TimerCircle min={getMinutes(timer.timeLeft)} sec={getSeconds(timer.timeLeft)} state={timer.state} iteration={timer.iteration} active={timer.active} toggleTimer={toggleTimer} progress={(timer.timePassed / timer.totalTime) * 100} />
       {timer.iteration > 0 && 
       <Container mx="auto" textAlign="center" mt="xxxl">
         <Button fontWeight="bold" onClick={() => resetSet()}>Reset set</Button>

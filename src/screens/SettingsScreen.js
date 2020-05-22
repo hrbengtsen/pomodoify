@@ -1,67 +1,83 @@
 import React, { useState } from 'react';
-import { Container, Heading, Button, FormGroup, FormControl, Row, Col, Text, Checkbox, Label, Badge } from '../components/UI';
+import { Container, Heading, Button, FormGroup, FormControl, Row, Col, Text, Label, Badge } from '../components/UI';
 import { useUser } from '../hooks/useUser';
 
 function SettingsScreen() {
-  const { user, defaultUser, deleteUser, updateSettings } = useUser();
+  const { user, defaultUser, deleteUser, updateUser } = useUser();
 
+  const [username, setUsername] = useState(user.name);
   const [settings, setSettings] = useState(user.settings);
   const [errors, setErrors] = useState({});
 
   function handleValidation() {
     let errors = {};
-    let settingsAreValid = true;
+    let updateIsValid = true;
 
     if (settings.pomodoro > 60 || settings.pomodoro < 1 || !/^[0-9]+$/.test(settings.pomodoro)) {
-      settingsAreValid = false;
+      updateIsValid = false;
       errors["pomodoro"] = "Only 1-60 min";
     }
 
     if (!settings.pomodoro) {
-      settingsAreValid = false;
+      updateIsValid = false;
       errors["pomodoro"] = "Must be number";
     }
 
     if (settings.break > 60 || settings.break < 1 || !/^[0-9]+$/.test(settings.break)) {
-      settingsAreValid = false;
+      updateIsValid = false;
       errors["break"] = "Only 1-60 min";
     }
 
     if (!settings.break) {
-      settingsAreValid = false;
+      updateIsValid = false;
       errors["break"] = "Must be number";
     }
 
     if (settings.longBreak > 60 || settings.longBreak < 1 || !/^[0-9]+$/.test(settings.longBreak)) {
-      settingsAreValid = false;
+      updateIsValid = false;
       errors["longBreak"] = "Only 1-60 min";
     }
 
     if (!settings.longBreak) {
-      settingsAreValid = false;
+      updateIsValid = false;
       errors["longBreak"] = "Must be number";
     }
 
+    if (!username) {
+      updateIsValid = false;
+      errors["username"] = "Required";
+    }
+
+    if (username && !/^[a-zA-Z0-9æøåÆØÅ ]+$/.test(username)) {
+      updateIsValid = false;
+      errors["username"] = "Only letters and numbers";
+    }
+
+    if (username.length > 25) {
+      updateIsValid = false;
+      errors["username"] = "Max. 25 characters";
+    }
+
     setErrors(errors);
-    return settingsAreValid;
+    return updateIsValid;
   }
 
   function saveSettings() {
     if (handleValidation()) {
-      updateSettings(settings);
+      updateUser(username, settings);
     }
   }
 
   function resetSettings() {
     setErrors({});
     setSettings(defaultUser.settings);
-    updateSettings(defaultUser.settings);
+    updateUser(username, defaultUser.settings);
   }
 
   return (
     <Container position="absolute" width="auto" height="auto" left="0" right="0" my="xxxxl">
       <Heading textAlign="center" fontWeight="reg" p="0">Settings</Heading>
-      <Container maxWidth="480px" mx="auto" px="xl">
+      <Container maxWidth="480px" mx="auto" px="lg">
         <Heading type="h5" color="text.0" position="relative" display="inline-block" highlight zIndex="1">
           Pomodoro timer (minutes)
         </Heading>
@@ -132,17 +148,14 @@ function SettingsScreen() {
         <Heading type="h5" color="text.0" position="relative" display="inline-block" highlight zIndex="1">
           Preferences
         </Heading>
+        <Container my="lg" m="sm" p="md">
+          <FormGroup>
+            <Label>Username <Badge color="danger" backgroundColor="transparent" p="0">{errors["username"]}</Badge></Label>
+            <FormControl textAlign="left" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Your username..." />
+          </FormGroup>
+        </Container>
         <Container p="md">
           <Button fontWeight="bold" onClick={() => deleteUser()}>Reset account</Button>
-        </Container>
-        <Container my="lg" m="sm" p="md">
-          <Label>
-            <Checkbox checked={settings.unfocusPause} onChange={(e) => setSettings({
-              ...settings,
-              unfocusPause: e.target.checked
-            })} mr="md" />
-            Pause timer when not on timer page
-          </Label>
         </Container>
 
         <Container textAlign="center" my="lg">

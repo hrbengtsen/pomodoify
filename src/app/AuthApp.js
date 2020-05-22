@@ -8,17 +8,15 @@ import Footer from '../components/Navigation/Footer';
 import { Route, Switch, useLocation, Redirect } from 'react-router-dom';
 import RouteTransitions from '../components/Routing/Transitions/RouteTransitions';
 import ScrollToTop from '../components/Routing/ScrollToTop';
-import { useAuthRoutes } from '../hooks/useAuthRoutes';
 import TimerProvider from '../contexts/TimerContext';
 
 function AuthApp() {
-  const authRoutes = useAuthRoutes();
   const location = useLocation();
 
   return (
     <TimerProvider>
       <ScrollToTop />
-      <Route path={authRoutes} component={Header} />
+      <Header />
       <RouteTransitions locationKey={location.key} {...location.state}>
         <Switch location={location}>
           <Route exact path="/">
@@ -38,7 +36,7 @@ function AuthApp() {
           </Route>
         </Switch>
       </RouteTransitions>
-      <Route path={authRoutes} component={Footer} />
+      <Footer />
     </TimerProvider>
   );
 }
