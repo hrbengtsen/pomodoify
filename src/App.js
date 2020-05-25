@@ -6,7 +6,7 @@ import UnAuthApp from './app/UnAuthApp';
 /*
   To-do:
   - Rewards
-  - Achievements
+    - Achievements
   - Home page (latest/streak)
   - Sound
   - Relevant toasts (notifications like: Saved settings!)

@@ -46,6 +46,7 @@ export function timerReducer(state, action) {
       if (storedTimer && storedSettings) {
         if (storedTimer.times.pomodoro !== storedSettings.pomodoro * 60 || storedTimer.times.break !== storedSettings.break * 60 || storedTimer.times.longBreak !== storedSettings.longBreak * 60) {
           return {
+            ...storedTimer,
             timeLeft: storedSettings.pomodoro * 60,
             timePassed: 0,
             totalTime: storedSettings.pomodoro * 60,

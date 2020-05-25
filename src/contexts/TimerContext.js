@@ -17,6 +17,10 @@ function TimerProvider({ children }) {
       break: user.settings.break * 60,
       longBreak: user.settings.longBreak * 60
     },
+    completed: {
+      pomodoros: 0,
+      sets: 0
+    },
     active: false,
     state: 'Pomodoro',
     iteration: 0,
@@ -25,7 +29,7 @@ function TimerProvider({ children }) {
   
   useEffect(() => {
     timerDispatch({ type: 'sync' });
-  }, [user]);
+  }, [user.settings]);
 
   useEffect(() => {
     timerDispatch({ type: 'save' });

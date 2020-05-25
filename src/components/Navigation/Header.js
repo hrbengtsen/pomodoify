@@ -16,7 +16,7 @@ function Header() {
           <Image src={Logo} alt="Pomodoify Logo (Resembles a clock)" width="40px" />
       </NavItem> 
 
-      <Container mr="auto">
+      <Container ml={["0", "auto"]} mr={["auto", "md"]}>
         <Route path={['/home', '/progression', '/settings']}>
           {timer.active && 
             <Text fontWeight="bold" mb="0" p="md">{timer.state} - {getMinutes(timer.timeLeft)}:{getSeconds(timer.timeLeft)}</Text>
