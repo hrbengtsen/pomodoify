@@ -5,8 +5,8 @@ export function getDefaultUser() {
       pomodoro: 25,
       break: 5,
       longBreak: 15,
-      sound: 'Sound 1',
-      volume: 50
+      sound: 'Alarm',
+      volume: 0.5
     }
   };
   return defaultUser;

@@ -3,6 +3,9 @@ import { useUser } from '../hooks/useUser';
 import { timerReducer } from '../reducers/timerReducer';
 import { getMinutes } from '../utils/getMinutes';
 import { getSeconds } from '../utils/getSeconds';
+import { useHowl, Play } from 'rehowl';
+import Tick from '../assets/sounds/tick.mp3';
+import { useState } from 'react';
 
 export const TimerContext = createContext();
 
@@ -26,6 +29,8 @@ function TimerProvider({ children }) {
     iteration: 0,
     repeat: false,
   });
+  const { howl } = useHowl({ src: Tick });
+  const [playTickSound, setPlayTickSound] = useState(false);
   
   useEffect(() => {
     timerDispatch({ type: 'sync' });
@@ -65,6 +70,7 @@ function TimerProvider({ children }) {
 
   const toggleTimer = () => {
     timerDispatch({ type: 'toggleTimer' });
+    setPlayTickSound(true);
   }
 
   const toggleRepeat = () => {
@@ -87,6 +93,7 @@ function TimerProvider({ children }) {
       resetTimer,
       resetSet
     }}>
+      <Play howl={howl} pause={!playTickSound} volume={user.settings.volume} onEnd={() => setPlayTickSound(false)} />
       {children}
     </TimerContext.Provider>
   );

@@ -126,9 +126,8 @@ function SettingsScreen() {
               ...settings,
               sound: e.target.value
             })}>
-              <option value="Sound 1">Sound 1</option>
-              <option value="Sound 2">Sound 2</option>
-              <option value="Sound 3">Sound 3</option>
+              <option value="Alarm">Alarm</option>
+              <option value="Cuckoo">Cuckoo</option>
             </FormControl>
           </FormGroup>
         </Container>
@@ -136,11 +135,11 @@ function SettingsScreen() {
           <FormGroup>
             <Label display="flex">
               Volume
-              <Text ml="auto" mb="0">{settings.volume}%</Text>
+              <Text ml="auto" mb="0">{Math.round(settings.volume * 100)}%</Text>
             </Label>
-            <FormControl type="range" min="0" max="100" value={settings.volume} onChange={(e) => setSettings({
+            <FormControl type="range" min={0} max={1} step={0.05} value={settings.volume} onChange={(e) => setSettings({
               ...settings,
-              volume: e.target.value
+              volume: parseFloat(e.target.value)
             })} />
           </FormGroup>
         </Container>

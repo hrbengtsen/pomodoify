@@ -10,6 +10,7 @@ import RouteTransitions from '../components/Routing/Transitions/RouteTransitions
 import ScrollToTop from '../components/Routing/ScrollToTop';
 import TimerProvider from '../contexts/TimerContext';
 import ProgressionProvider from '../contexts/ProgressionContext';
+import TimerSound from '../components/Timer/TimerSound';
 
 function AuthApp() {
   const location = useLocation();
@@ -17,6 +18,7 @@ function AuthApp() {
   return (
     <TimerProvider>
       <ProgressionProvider>
+        <TimerSound />
         <ScrollToTop />
         <Header />
         <RouteTransitions locationKey={location.key} {...location.state}>
