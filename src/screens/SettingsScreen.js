@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Heading, Button, FormGroup, FormControl, Row, Col, Text, Label, Badge } from '../components/UI';
 import { useUser } from '../hooks/useUser';
+import { toast } from 'react-toastify';
 
 function SettingsScreen() {
   const { user, defaultUser, deleteUser, updateUser } = useUser();
@@ -65,6 +66,9 @@ function SettingsScreen() {
   function saveSettings() {
     if (handleValidation()) {
       updateUser(username, settings);
+      toast('Settings saved.', {
+        toastId: 'save-settings-toast'
+      });
     }
   }
 
@@ -72,6 +76,9 @@ function SettingsScreen() {
     setErrors({});
     setSettings(defaultUser.settings);
     updateUser(username, defaultUser.settings);
+    toast('Settings reset to default.', {
+      toastId: 'reset-settings-toast'
+    });
   }
 
   return (
@@ -128,6 +135,7 @@ function SettingsScreen() {
             })}>
               <option value="Alarm">Alarm</option>
               <option value="Cuckoo">Cuckoo</option>
+              <option value="Yoo">Yoo</option>
             </FormControl>
           </FormGroup>
         </Container>

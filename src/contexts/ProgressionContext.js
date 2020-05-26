@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { useTimer } from '../hooks/useTimer';
 import { getAchievements } from '../utils/getAchievements';
+import { toast } from 'react-toastify';
 
 export const ProgressionContext = createContext();
 
@@ -29,8 +30,13 @@ function ProgressionProvider({ children }) {
   }, [timer.completed]);
 
   function updateProgression(completed) {
+    let newUnlock = false;
     let updatedAchievements = progression.achievements.map((achievement) => {
       if (completed.pomodoros >= achievement.pomodoros) {
+        if (completed.pomodoros === JSON.parse(localStorage.getItem('timer')).completed) {
+          newUnlock = true;
+        } // fix notification (new unlock) triggering on page reload (has something to do with the timer.completed being updated with the localstorage one, even though they might be the same)
+        
         return {
           ...achievement,
           locked: false
@@ -44,6 +50,12 @@ function ProgressionProvider({ children }) {
       pomodoros: completed.pomodoros,
       sets: completed.sets
     }));
+
+    if (newUnlock) {
+      toast('New achievement unlocked!', {
+        toastId: 'achievement-unlock-toast'
+      });
+    }
   }
 
   return (

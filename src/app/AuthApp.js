@@ -11,6 +11,9 @@ import ScrollToTop from '../components/Routing/ScrollToTop';
 import TimerProvider from '../contexts/TimerContext';
 import ProgressionProvider from '../contexts/ProgressionContext';
 import TimerSound from '../components/Timer/TimerSound';
+import { Slide } from 'react-toastify';
+import { StyledToastContainer } from '../utils/StyledToastContainer';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 function AuthApp() {
   const location = useLocation();
@@ -21,6 +24,19 @@ function AuthApp() {
         <TimerSound />
         <ScrollToTop />
         <Header />
+        <StyledToastContainer
+          position="top-center"
+          autoClose={2500}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          limit={2}
+          transition={Slide}
+        />
         <RouteTransitions locationKey={location.key} {...location.state}>
           <Switch location={location}>
             <Route exact path="/">
