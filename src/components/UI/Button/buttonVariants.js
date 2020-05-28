@@ -48,6 +48,24 @@ export const buttonVariants = {
         color: 'text.0'
       }
     },
+    newAchievement: {
+      color: 'bg.0',
+      backgroundColor: 'secondary.0',
+      border: 'none',
+      fontWeight: 'bold',
+      boxShadow: 'none',
+      width: '48px',
+      borderRadius: 'circle',
+      p: 'md',
+      '&:hover': {
+        backgroundColor: 'secondary.0',
+        color: 'text.0'
+      },
+      '&:focus': {
+        backgroundColor: 'secondary.0',
+        color: 'text.0'
+      }
+    },
     timer: {
       backgroundColor: 'bg.1',
       border: 'none',

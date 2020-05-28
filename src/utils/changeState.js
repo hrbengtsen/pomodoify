@@ -2,10 +2,6 @@ export const changeState = (state, nextState) => {
   let time = 0;
   let stayActive = false;
   let nextIteration = state.iteration;
-  let newCompleted = {
-    pomodoros: state.completed.pomodoros,
-    sets: state.completed.sets
-  };
 
   switch (nextState) {
     case 'Pomodoro':
@@ -18,14 +14,12 @@ export const changeState = (state, nextState) => {
       time = state.times.break;
       stayActive = true;
       nextIteration++;
-      newCompleted.pomodoros++;
       break;
 
     case 'Long break':
       time = state.times.longBreak;
       stayActive = true;
       nextIteration++;
-      newCompleted.sets++;
       break;
   }
 
@@ -36,7 +30,6 @@ export const changeState = (state, nextState) => {
     timeLeft: time,
     timePassed: 0,
     totalTime: time,
-    completed: newCompleted,
     active: stayActive,
     state: nextState,
     iteration: nextIteration

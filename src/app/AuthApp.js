@@ -19,8 +19,8 @@ function AuthApp() {
   const location = useLocation();
 
   return (
-    <TimerProvider>
-      <ProgressionProvider>
+    <ProgressionProvider>
+      <TimerProvider>
         <TimerSound />
         <ScrollToTop />
         <Header />
@@ -57,8 +57,8 @@ function AuthApp() {
           </Switch>
         </RouteTransitions>
         <Footer />
-      </ProgressionProvider>
-    </TimerProvider>
+      </TimerProvider>
+    </ProgressionProvider>
   );
 }
 

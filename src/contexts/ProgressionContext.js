@@ -1,12 +1,10 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { useTimer } from '../hooks/useTimer';
 import { getAchievements } from '../utils/getAchievements';
 import { toast } from 'react-toastify';
 
 export const ProgressionContext = createContext();
 
 function ProgressionProvider({ children }) {
-  const { timer } = useTimer();
   const [progression, setProgression] = useState({
     achievements: getAchievements(),
     pomodoros: 0,
@@ -24,31 +22,47 @@ function ProgressionProvider({ children }) {
     localStorage.setItem('progression', JSON.stringify(progression));
   }, [progression]);
 
-  useEffect(() => {
-    updateProgression(timer.completed);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timer.completed]);
-
-  function updateProgression(completed) {
+  function updateProgression() {
     let newUnlock = false;
+
+    // Calculate new base progression
+    let newPomodoros = progression.pomodoros + 1;
+    let newSets = Math.floor((progression.pomodoros + 1) / 4);
+
     let updatedAchievements = progression.achievements.map((achievement) => {
-      if (completed.pomodoros >= achievement.pomodoros) {
-        if (completed.pomodoros === JSON.parse(localStorage.getItem('timer')).completed) {
-          newUnlock = true;
-        } // fix notification (new unlock) triggering on page reload (has something to do with the timer.completed being updated with the localstorage one, even though they might be the same)
-        
-        return {
-          ...achievement,
-          locked: false
-        };
+      // Check to prevent same achievement getting unlocked multiple times
+      if (achievement.locked) {
+        // Check for if it has something to do with pomodoros
+        if (achievement.pomodoros) {
+          if (newPomodoros >= achievement.pomodoros) {
+            newUnlock = true;
+            return {
+              ...achievement,
+              locked: false,
+              isNew: true
+            };
+          }
+        }
+        // Check for if it has something to do with sets
+        else if (achievement.sets) {
+          if (newSets >= achievement.sets) {
+            newUnlock = true;
+            return {
+              ...achievement,
+              locked: false,
+              isNew: true
+            };
+          }
+        }
       }
       return achievement;
     });
+
     setProgression(prevProg => ({
       ...prevProg,
       achievements: updatedAchievements,
-      pomodoros: completed.pomodoros,
-      sets: completed.sets
+      pomodoros: newPomodoros,
+      sets: newSets
     }));
 
     if (newUnlock) {
@@ -58,9 +72,33 @@ function ProgressionProvider({ children }) {
     }
   }
 
+  function resetNewAchievements() {
+    let newUnlock = false;
+
+    let updatedAchievements = progression.achievements.map((achievement) => {
+      if (achievement.isNew) {
+        newUnlock = true;
+        return {
+          ...achievement,
+          isNew: false
+        }
+      }
+      return achievement;
+    });
+
+    if (newUnlock) {
+      setProgression(prevProg => ({
+        ...prevProg,
+        achievements: updatedAchievements
+      }));
+    }
+  }
+
   return (
     <ProgressionContext.Provider value={{
-      progression
+      progression,
+      updateProgression,
+      resetNewAchievements
     }}>
       {children}
     </ProgressionContext.Provider>

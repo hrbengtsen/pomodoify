@@ -6,23 +6,21 @@ import { getSeconds } from '../utils/getSeconds';
 import { useHowl, Play } from 'rehowl';
 import Tick from '../assets/sounds/tick.mp3';
 import { useState } from 'react';
+import { useProgression } from '../hooks/useProgression';
 
 export const TimerContext = createContext();
 
 function TimerProvider({ children }) {
   const { user } = useUser();
+  const { updateProgression } = useProgression();
   const [timer, timerDispatch] = useReducer(timerReducer, {
-    timeLeft: user.settings.pomodoro * 60,
+    timeLeft: 3 /*user.settings.pomodoro * 60*/,
     timePassed: 0,
-    totalTime: user.settings.pomodoro * 60,
+    totalTime: 3 /*user.settings.pomodoro * 60*/,
     times: {
-      pomodoro: user.settings.pomodoro * 60,
-      break: user.settings.break * 60,
-      longBreak: user.settings.longBreak * 60
-    },
-    completed: {
-      pomodoros: 0,
-      sets: 0
+      pomodoro: 3 /*user.settings.pomodoro * 60*/,
+      break: 3 /*user.settings.break * 60*/,
+      longBreak: 3 /*user.settings.longBreak * 60*/
     },
     active: false,
     state: 'Pomodoro',
@@ -65,8 +63,11 @@ function TimerProvider({ children }) {
   useEffect(() => {
     if (timer.timeLeft === 0) {
       timerDispatch({ type: timer.state });
+      if (timer.state === 'Pomodoro') {
+        updateProgression();
+      }
     }
-  }, [timer.timeLeft, timer.state]);
+  }, [timer.timeLeft, timer.state, updateProgression]);
 
   const toggleTimer = () => {
     timerDispatch({ type: 'toggleTimer' });

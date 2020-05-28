@@ -43,7 +43,7 @@ export function timerReducer(state, action) {
       let storedTimer = JSON.parse(localStorage.getItem('timer'));
       let storedSettings = JSON.parse(localStorage.getItem('user')).settings;
 
-      if (storedTimer && storedSettings) { //  && storedTimer.equals(state) https://stackoverflow.com/questions/1068834/object-comparison-in-javascript
+      if (storedTimer && storedSettings) {
         if (storedTimer.times.pomodoro !== storedSettings.pomodoro * 60 || storedTimer.times.break !== storedSettings.break * 60 || storedTimer.times.longBreak !== storedSettings.longBreak * 60) {
           return {
             ...storedTimer,

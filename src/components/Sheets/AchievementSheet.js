@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
-import { Button, Sheet, SheetHeader, SheetBody, Heading, Icon, Text, Container, Image } from '../UI';
+import React, { useState, useEffect } from 'react';
+import { Button, Sheet, SheetHeader, SheetBody, Heading, Icon, Text, Container, Image, Badge } from '../UI';
 import Achievement from '../Progression/Achievement';
 import { useProgression } from '../../hooks/useProgression';
 
 const AchievementSheet = (props) => {
-  const { progression } = useProgression();
+  const { progression, resetNewAchievements } = useProgression();
   const [hidden, setHidden] = useState(true);
   const [activeAchievement, setActiveAchievement] = useState({});
   const [activeIndex, setActiveIndex] = useState(0);
   //const buttonRef = useRef(null);
+
+  useEffect(() => {
+    return () => resetNewAchievements();
+  }, [resetNewAchievements]);
 
   function handleSheet(index) {
     if (hidden) {
@@ -22,9 +26,17 @@ const AchievementSheet = (props) => {
   return (
     <>
       <Container my="xl" display="flex" justifyContent="space-between" flexWrap="wrap">
-        {progression.achievements.map((element, index) => {
+        {progression.achievements.map((achievement, index) => {
           if (index < 5) {
-            return <Achievement achievement={element} key={index} onClick={() => handleSheet(index)} />;
+            return <Achievement achievement={achievement} key={index} onClick={() => handleSheet(index)} />;
+          } 
+          return '';
+        })}
+      </Container>
+      <Container my="xl" display="flex" justifyContent="space-between" flexWrap="wrap">
+        {progression.achievements.map((achievement, index) => {
+          if (index >= 5 && index < 10) {
+            return <Achievement achievement={achievement} key={index} onClick={() => handleSheet(index)} />;
           } 
           return '';
         })}
@@ -34,7 +46,7 @@ const AchievementSheet = (props) => {
       </Container>
       <Sheet hidden={hidden} toggle={() => handleSheet(activeIndex)}>
         <SheetHeader>
-          <Heading type="h4" mx="auto" fontWeight="reg">Achievement</Heading>
+          <Heading type="h4" mx="auto" fontWeight="reg">Achievement {activeAchievement.isNew ? <Badge backgroundColor="secondary" color="bg.0">New</Badge> : ''}</Heading>
           <Button fontSize={['lg', 'xl']} position="absolute" right="0" m="sm" mr="lg" onClick={() => handleSheet(activeIndex)}>
             <Icon icon="times" style={{ verticalAlign: 'baseline' }} />
           </Button>
