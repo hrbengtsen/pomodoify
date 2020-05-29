@@ -14,13 +14,13 @@ function TimerProvider({ children }) {
   const { user } = useUser();
   const { updateProgression } = useProgression();
   const [timer, timerDispatch] = useReducer(timerReducer, {
-    timeLeft: 3 /*user.settings.pomodoro * 60*/,
+    timeLeft: user.settings.pomodoro * 60,
     timePassed: 0,
-    totalTime: 3 /*user.settings.pomodoro * 60*/,
+    totalTime: user.settings.pomodoro * 60,
     times: {
-      pomodoro: 3 /*user.settings.pomodoro * 60*/,
-      break: 3 /*user.settings.break * 60*/,
-      longBreak: 3 /*user.settings.longBreak * 60*/
+      pomodoro: user.settings.pomodoro * 60,
+      break: user.settings.break * 60,
+      longBreak: user.settings.longBreak * 60
     },
     active: false,
     state: 'Pomodoro',

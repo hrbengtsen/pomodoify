@@ -1,95 +1,93 @@
-import Logo from '../assets/logo.svg';
-
 export function getAchievements() {
   const achievements = [
     {
       title: 'Your first Pomodoro!',
-      desc: 'Obtained by completing a Pomodoro.',
+      desc: 'Congratulations you have completed your first Pomodoro and obtained your first achievement!',
       locked: true,
       isNew: false,
-      src: Logo,
+      icon: 'award',
       pomodoros: 1,
       sets: 0
     },
     {
       title: 'Persistense I',
-      desc: 'Obtained by completing 5 Pomodoros.',
+      desc: 'You have completed 5 Pomodoros! Keep it up.',
       locked: true,
       isNew: false,
-      src: Logo,
+      icon: 'burn',
       pomodoros: 5,
       sets: 0
     },
     {
       title: 'Persistense II',
-      desc: 'Obtained by completing 25 Pomodoros.',
+      desc: 'Well done! You have completed 25 Pomodoros.',
       locked: true,
       isNew: false,
-      src: Logo,
+      icon: 'bullseye',
       pomodoros: 25,
       sets: 0
     },
     {
       title: 'Persistense III',
-      desc: 'Obtained by completing 50 Pomodoros.',
+      desc: "It's addicting right? You have completed 50 Pomodoros.",
       locked: true,
       isNew: false,
-      src: Logo,
+      icon: 'grin-beam-sweat',
       pomodoros: 50,
       sets: 0
     },
     {
       title: 'Persistense IV',
-      desc: 'Obtained by completing 100 Pomodoros.',
+      desc: 'Woah... You have completed 100 Pomodoros.',
       locked: true,
       isNew: false,
-      src: Logo,
+      icon: 'bomb',
       pomodoros: 100,
       sets: 0
     },
 
     {
       title: 'Your first Set!',
-      desc: 'Obtained by completing a Set.',
+      desc: 'Congratulations you have completed your first Set! You are on a roll.',
       locked: true,
       isNew: false,
-      src: Logo,
+      icon: 'medal',
       pomodoros: 0,
       sets: 1 
     },
     {
       title: 'Resilience I',
-      desc: 'Obtained by completing 2 Sets.',
+      desc: 'Nice job! You have completed 2 Sets.',
       locked: true,
       isNew: false,
-      src: Logo,
+      icon: 'candy-cane',
       pomodoros: 0,
       sets: 2 
     },
     {
       title: 'Resilience II',
-      desc: 'Obtained by completing 5 Sets.',
+      desc: "It's working, you are already at 5. You have completed 5 Sets.",
       locked: true,
       isNew: false,
-      src: Logo,
+      icon: 'surprise',
       pomodoros: 0,
       sets: 5
     },
     {
       title: 'Resilience III',
-      desc: 'Obtained by completing 10 Sets.',
+      desc: 'This is fun right? You have completed 10 Sets.',
       locked: true,
       isNew: false,
-      src: Logo,
+      icon: 'hourglass',
       pomodoros: 0,
       sets: 10
     },
     {
       title: 'Resilience IV',
-      desc: 'Obtained by completing 20 Sets.',
+      desc: 'Excellent! You really are resillient. You have completed 20 Sets.',
       locked: true,
       isNew: false,
-      src: Logo,
+      icon: 'shield-alt',
       pomodoros: 0,
       sets: 20
     },

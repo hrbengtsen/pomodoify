@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Sheet, SheetHeader, SheetBody, Heading, Icon, Text, Container, Image, Badge } from '../UI';
+import { Button, Sheet, SheetHeader, SheetBody, Heading, Icon, Text, Container, Badge } from '../UI';
 import Achievement from '../Progression/Achievement';
 import { useProgression } from '../../hooks/useProgression';
 
@@ -42,7 +42,7 @@ const AchievementSheet = (props) => {
         })}
       </Container>
       <Container textAlign="center" my="xl">
-        <Text>More achievements to come...</Text>
+        <Text>More achievements and new forms of progression coming soon...</Text>
       </Container>
       <Sheet hidden={hidden} toggle={() => handleSheet(activeIndex)}>
         <SheetHeader>
@@ -54,7 +54,7 @@ const AchievementSheet = (props) => {
         <SheetBody p="lg" pt="0">
           <Container maxWidth="480px" mx="auto" backgroundColor="bg.1" borderRadius="md">
             <Text textAlign="center" fontWeight="bold" p="lg" mb="0">
-              <Image src={activeAchievement.src} width="20px" mr="md" />
+              <Icon icon={activeAchievement.icon ? activeAchievement.icon : 'lock'} size="lg" mr="sm" />
               {activeAchievement.title}
             </Text>
             <Text textAlign="center" p="lg">

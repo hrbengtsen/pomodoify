@@ -30,6 +30,21 @@ export const buttonVariants = {
         borderColor: 'text.0'
       }
     },
+    danger: {
+      color: 'bg.0',
+      backgroundColor: 'danger.0',
+      borderColor: 'danger.0',
+      fontWeight: 'bold',
+      boxShadow: 'none',
+      '&:hover': {
+        backgroundColor: 'danger.0',
+        borderColor: 'danger.0'
+      },
+      '&:focus': {
+        backgroundColor: 'danger.0',
+        borderColor: 'text.0'
+      }
+    },
     achievement: {
       color: 'bg.0',
       backgroundColor: 'bg.1',
@@ -59,11 +74,11 @@ export const buttonVariants = {
       p: 'md',
       '&:hover': {
         backgroundColor: 'secondary.0',
-        color: 'text.0'
+        color: 'bg.0'
       },
       '&:focus': {
         backgroundColor: 'secondary.0',
-        color: 'text.0'
+        color: 'bg.0'
       }
     },
     timer: {
@@ -98,6 +113,23 @@ export const buttonVariants = {
       '&.active': {
         backgroundColor: 'bg.0',
         color: 'primary.0'
+      }
+    },
+    link: {
+      color: 'text.0',
+      backgroundColor: 'bg.0',
+      border: 'none',
+      fontWeight: 'bold',
+      boxShadow: 'none',
+      p: '0',
+      m: '0',
+      '&:hover': {
+        backgroundColor: 'bg.0',
+        border: 'none',
+      },
+      '&:focus': {
+        backgroundColor: 'bg.0',
+        border: 'none',
       }
     }
   }

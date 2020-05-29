@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Container, Heading, Button, FormGroup, FormControl, Row, Col, Text, Label, Badge } from '../components/UI';
 import { useUser } from '../hooks/useUser';
 import { toast } from 'react-toastify';
+import DeleteAccountSheet from '../components/Sheets/DeleteAccountSheet';
 
 function SettingsScreen() {
-  const { user, defaultUser, deleteUser, updateUser } = useUser();
+  const { user, defaultUser, updateUser } = useUser();
 
   const [username, setUsername] = useState(user.name);
   const [settings, setSettings] = useState(user.settings);
@@ -66,7 +67,7 @@ function SettingsScreen() {
   function saveSettings() {
     if (handleValidation()) {
       updateUser(username, settings);
-      toast('Settings saved.', {
+      toast('Saved settings.', {
         toastId: 'save-settings-toast'
       });
     }
@@ -162,7 +163,7 @@ function SettingsScreen() {
           </FormGroup>
         </Container>
         <Container p="md">
-          <Button fontWeight="bold" onClick={() => deleteUser()}>Reset account</Button>
+          <DeleteAccountSheet />
         </Container>
 
         <Container textAlign="center" my="lg">

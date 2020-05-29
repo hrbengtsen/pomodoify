@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Icon, Image } from '../UI';
+import { Button, Icon } from '../UI';
 
 function Achievement(props) {
   const { flex, onClick, achievement } = props;
@@ -12,7 +12,7 @@ function Achievement(props) {
   return (
     <Button variant={achievementVariant} flex={flex} onClick={achievement.locked ? null : onClick}>
       {achievement.locked ? <Icon icon="lock" size="2x" style={{ verticalAlign: 'middle' }} /> :
-      <Image src={achievement.src} width="32px" />}
+      <Icon icon={achievement.icon} size="2x" style={{ verticalAlign: 'middle' }} />}
     </Button>
   );
 }

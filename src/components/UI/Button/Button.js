@@ -103,7 +103,24 @@ RouterButton.defaultProps = {
 };
 
 const LinkButton = styled('a').withConfig({ shouldForwardProp })`
-  ${props => buttonStyles(props)}
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  transition: color ${props => props.theme.hoverTime} ease-in-out, background-color ${props => props.theme.hoverTime} ease-in-out, border ${props => props.theme.hoverTime} ease-in-out, box-shadow ${props => props.theme.hoverTime} ease-in-out;
+
+  ${props => block(props)}
+  ${props => disabled(props)}
+  ${props => cursor(props)}
+
+  ${space}
+  ${color}
+  ${border}
+  ${typography}
+  ${shadow}
+  ${position}
+  ${layout}
+  ${flexbox}
+  ${variant(buttonVariants)}
 `;
 
 LinkButton.defaultProps = {

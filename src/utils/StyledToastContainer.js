@@ -15,11 +15,13 @@ export const StyledToastContainer = styled(ToastContainer).attrs({
     color: ${props => props.theme.colors.text[1]};
     font-family: ${props => props.theme.fonts.regular};
     min-height: 48px;
+    border-radius: ${props => props.theme.radii.md}px;
   }
 
   @media (max-width: ${props => props.theme.breakpoints[0]}) {
     .toast {
       min-height: 64px;
+      border-radius: 0;
     }
   }
 

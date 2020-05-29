@@ -63,7 +63,7 @@ const Col = styled('div').withConfig({ shouldForwardProp })`
 `;
 
 Col.defaultProps = {
-  p: 'md'
+  p: 'lg'
 };
 
 export default Col;
