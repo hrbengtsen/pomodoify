@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/pomodoify/static/css/main.c48cbd92.chunk.css",
-    "main.js": "/pomodoify/static/js/main.48970b4c.chunk.js",
-    "main.js.map": "/pomodoify/static/js/main.48970b4c.chunk.js.map",
+    "main.js": "/pomodoify/static/js/main.f5561b5e.chunk.js",
+    "main.js.map": "/pomodoify/static/js/main.f5561b5e.chunk.js.map",
     "runtime-main.js": "/pomodoify/static/js/runtime-main.05b210da.js",
     "runtime-main.js.map": "/pomodoify/static/js/runtime-main.05b210da.js.map",
     "static/css/2.55f2319f.chunk.css": "/pomodoify/static/css/2.55f2319f.chunk.css",
     "static/js/2.4e300f6b.chunk.js": "/pomodoify/static/js/2.4e300f6b.chunk.js",
     "static/js/2.4e300f6b.chunk.js.map": "/pomodoify/static/js/2.4e300f6b.chunk.js.map",
     "index.html": "/pomodoify/index.html",
-    "precache-manifest.c2ee5aaa9c3b74d128ba1b535cc9d2f7.js": "/pomodoify/precache-manifest.c2ee5aaa9c3b74d128ba1b535cc9d2f7.js",
+    "precache-manifest.37145f90c608bd639f4cbe83b6c8d96c.js": "/pomodoify/precache-manifest.37145f90c608bd639f4cbe83b6c8d96c.js",
     "service-worker.js": "/pomodoify/service-worker.js",
     "static/css/2.55f2319f.chunk.css.map": "/pomodoify/static/css/2.55f2319f.chunk.css.map",
     "static/css/main.c48cbd92.chunk.css.map": "/pomodoify/static/css/main.c48cbd92.chunk.css.map",
@@ -25,6 +25,6 @@
     "static/css/2.55f2319f.chunk.css",
     "static/js/2.4e300f6b.chunk.js",
     "static/css/main.c48cbd92.chunk.css",
-    "static/js/main.48970b4c.chunk.js"
+    "static/js/main.f5561b5e.chunk.js"
   ]
 }

@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "3f0461ce16ddaa05067cf30a0e472d8d",
+    "revision": "7340cc181be53345b0e961dadfbf8250",
     "url": "/pomodoify/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/pomodoify/static/css/2.55f2319f.chunk.css"
   },
   {
-    "revision": "7c17561ac82ee001a3db",
+    "revision": "f6a611e583c00b4ee8f3",
     "url": "/pomodoify/static/css/main.c48cbd92.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/pomodoify/static/js/2.4e300f6b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "7c17561ac82ee001a3db",
-    "url": "/pomodoify/static/js/main.48970b4c.chunk.js"
+    "revision": "f6a611e583c00b4ee8f3",
+    "url": "/pomodoify/static/js/main.f5561b5e.chunk.js"
   },
   {
     "revision": "ad716ae5d3ee21cc375b",
