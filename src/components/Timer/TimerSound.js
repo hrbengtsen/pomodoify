@@ -15,7 +15,7 @@ function TimerSound() {
   const { howl } = useHowl({ src: currentSound });
 
   useEffect(() => {
-    if (timer.timeLeft === 0) {
+    if (timer.timeLeft === 1) {
       setPlay(true);
     }
   }, [timer.timeLeft]);
@@ -41,7 +41,9 @@ function TimerSound() {
   }, [user.settings.sound, timerSounds]);
 
   return (
-    <Play howl={howl} pause={!play} volume={user.settings.volume} onEnd={() => setPlay(false)} /> 
+    <>
+      {play ? <Play howl={howl} volume={user.settings.volume} onEnd={() => setPlay(false)} /> : null}
+    </>
   );
 }
 

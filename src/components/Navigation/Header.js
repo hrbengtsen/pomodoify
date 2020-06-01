@@ -21,12 +21,12 @@ function Header() {
 
   return (
     <Nav p="lg" position="fixed" width="100%" zIndex="1000">
-      <NavItem to={{ pathname: "/home", state: slideDown }} mr={["auto", "0"]} width="40px" height="40px">
+      <NavItem to={{ pathname: "/pomodoify/home", state: slideDown }} mr={["auto", "0"]} width="40px" height="40px">
           <Image src={Logo} alt="Pomodoify Logo (Resembles a clock)" width="40px" />
       </NavItem> 
 
       <Container ml={["0", "auto"]} mr={["auto", "md"]}>
-        <Route path={['/home', '/progression', '/settings']}>
+        <Route path={['/pomodoify/home', '/pomodoify/progression', '/pomodoify/settings']}>
           {timer.active && 
             <Text fontWeight="bold" mb="0" p="md">{timer.state} - {getMinutes(timer.timeLeft)}:{getSeconds(timer.timeLeft)}</Text>
           }
@@ -34,17 +34,17 @@ function Header() {
       </Container>
 
       <Nav p="0" hide="sm">
-        <NavItem to={{ pathname: "/timer", state: slideDown }} borderRadius="circle" backgroundColor="bg.1" p="md" mr="md" width="40px" height="40px" textAlign="center" fontSize="1.5em">
+        <NavItem to={{ pathname: "/pomodoify/timer", state: slideDown }} borderRadius="circle" backgroundColor="bg.1" p="md" mr="md" width="40px" height="40px" textAlign="center" fontSize="1.5em">
           <Icon icon="clock" style={{ verticalAlign: '25%' }} />
         </NavItem>
         <Container>
-          <NavItem to={{ pathname: "/progression", state: slideDown }} borderRadius="circle" backgroundColor="bg.1" p="md" mx="md" width="40px" height="40px" textAlign="center" fontSize="1.5em">
+          <NavItem to={{ pathname: "/pomodoify/progression", state: slideDown }} borderRadius="circle" backgroundColor="bg.1" p="md" mx="md" width="40px" height="40px" textAlign="center" fontSize="1.5em">
             <Icon icon="tasks" style={{ verticalAlign: '25%' }} />
           </NavItem>
           {amountOfNewAchievements > 0 ? <Badge backgroundColor="secondary" color="bg.0" borderRadius="circle" position="absolute" right="0" top="-7px" width="22px" fontSize="60%" scaleWithSibling>{amountOfNewAchievements}</Badge> : ''}
         </Container>
       </Nav>
-      <NavItem to={{ pathname: "/settings", state: slideDown }} borderRadius="circle" backgroundColor="bg.1" p="md" ml="md" width="40px" height="40px" textAlign="center" fontSize="1.5em">
+      <NavItem to={{ pathname: "/pomodoify/settings", state: slideDown }} borderRadius="circle" backgroundColor="bg.1" p="md" ml="md" width="40px" height="40px" textAlign="center" fontSize="1.5em">
           <Icon icon="cog" style={{ verticalAlign: '25%' }} />
       </NavItem>
     </Nav>

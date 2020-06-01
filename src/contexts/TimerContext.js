@@ -7,6 +7,7 @@ import { useHowl, Play } from 'rehowl';
 import Tick from '../assets/sounds/tick.mp3';
 import { useState } from 'react';
 import { useProgression } from '../hooks/useProgression';
+import TimerSound from '../components/Timer/TimerSound';
 
 export const TimerContext = createContext();
 
@@ -95,6 +96,7 @@ function TimerProvider({ children }) {
       resetSet
     }}>
       <Play howl={howl} pause={!playTickSound} volume={user.settings.volume} onEnd={() => setPlayTickSound(false)} />
+      <TimerSound />
       {children}
     </TimerContext.Provider>
   );

@@ -20,12 +20,12 @@ function UserProvider({ children }) {
 
   function addUser(username) {
     userDispatch({ type: 'add', payload: username });
-    history.push('/home');
+    history.push('/pomodoify/home');
   }
 
   function deleteUser() {
     userDispatch({ type: 'delete' });
-    history.push('/');
+    history.push('/pomodoify');
   }
 
   function updateUser(newName, newSettings) {

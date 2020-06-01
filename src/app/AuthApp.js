@@ -10,7 +10,6 @@ import RouteTransitions from '../components/Routing/Transitions/RouteTransitions
 import ScrollToTop from '../components/Routing/ScrollToTop';
 import TimerProvider from '../contexts/TimerContext';
 import ProgressionProvider from '../contexts/ProgressionContext';
-import TimerSound from '../components/Timer/TimerSound';
 import { Slide } from 'react-toastify';
 import { StyledToastContainer } from '../utils/StyledToastContainer';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -21,7 +20,6 @@ function AuthApp() {
   return (
     <ProgressionProvider>
       <TimerProvider>
-        <TimerSound />
         <ScrollToTop />
         <Header />
         <StyledToastContainer
@@ -39,19 +37,19 @@ function AuthApp() {
         />
         <RouteTransitions locationKey={location.key} {...location.state}>
           <Switch location={location}>
-            <Route exact path="/">
-              <Redirect to="/home" />
+            <Route exact path="/pomodoify">
+              <Redirect to="/pomodoify/home" />
             </Route>
-            <Route path="/home">
+            <Route path="/pomodoify/home">
               <UserScreen />
             </Route>
-            <Route path="/timer">
+            <Route path="/pomodoify/timer">
               <TimerScreen />
             </Route>
-            <Route path="/progression">
+            <Route path="/pomodoify/progression">
               <ProgressionScreen />
             </Route>
-            <Route path="/settings">
+            <Route path="/pomodoify/settings">
               <SettingsScreen />
             </Route>
           </Switch>
