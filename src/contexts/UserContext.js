@@ -26,6 +26,7 @@ function UserProvider({ children }) {
   function deleteUser() {
     userDispatch({ type: 'delete' });
     history.push('/pomodoify');
+    document.body.style.overflowY = 'auto';
   }
 
   function updateUser(newName, newSettings) {

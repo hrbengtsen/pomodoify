@@ -22,7 +22,7 @@ function UserScreen() {
         <RouterButton to="/pomodoify/timer" m="0" mr="xl" variant="primary">Start a timer</RouterButton>
         <Container display="inline-block">
           <RouterButton to="/pomodoify/progression" m="0" ml="xl" fontWeight="bold">Check progress</RouterButton>
-          {amountOfNewAchievements > 0 ? <Badge backgroundColor="secondary" color="bg.0" borderRadius="circle" position="absolute" right="-7px" top="-7px" width="22px" fontSize="60%" scaleWithSibling>{amountOfNewAchievements}</Badge> : ''}
+          {amountOfNewAchievements > 0 ? <Badge backgroundColor="secondary" border="md" borderColor="bg.0" color="bg.0" borderRadius="circle" position="absolute" right="-7px" top="-7px" width="26px" fontSize="60%" scaleWithSibling>{amountOfNewAchievements}</Badge> : ''}
         </Container>
       </Container>
       <UserFeed />

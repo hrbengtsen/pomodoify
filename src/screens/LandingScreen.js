@@ -70,7 +70,7 @@ function LandingScreen() {
           <Col sm={6}>
             <Heading type="h5" textAlign="center" fontWeight="reg" px="lg">Still in development</Heading>
             <Text>
-              The app is still in development towards 1.0 and therefore everything is subject to improve/change. Any feedback is highly appreciated <LinkButton variant="link" href="mailto:mikkelbengtsen@gmail.com">(Send me an email)</LinkButton>.
+              The app is still in development and therefore everything is subject to improve/change. Any feedback is highly appreciated <LinkButton variant="link" href="mailto:mikkelbengtsen@gmail.com">(Send me an email)</LinkButton>.
             </Text>
           </Col>
         </Row>

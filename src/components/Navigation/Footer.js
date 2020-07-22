@@ -21,7 +21,7 @@ function Footer() {
           <NavItem to={{ pathname: "/pomodoify/progression", state: slideUp }} borderRadius="circle" backgroundColor="bg.1" p="md" ml="md" width="40px" height="40px" textAlign="center" fontSize="1.5em">
             <Icon icon="tasks" style={{ verticalAlign: '25%' }} />
           </NavItem>
-          {amountOfNewAchievements > 0 ? <Badge backgroundColor="secondary" color="bg.0" borderRadius="circle" position="absolute" right="-7px" top="-7px" width="22px" fontSize="60%" scaleWithSibling>{amountOfNewAchievements}</Badge> : ''}
+          {amountOfNewAchievements > 0 ? <Badge backgroundColor="secondary" border="md" borderColor="bg.0" color="bg.0" borderRadius="circle" position="absolute" right="-7px" top="-7px" width="26px" fontSize="60%" scaleWithSibling>{amountOfNewAchievements}</Badge> : ''}
         </Container>
     </Nav>
   );

@@ -41,8 +41,16 @@ const AchievementSheet = (props) => {
           return '';
         })}
       </Container>
+      <Container my="xl" display="flex" justifyContent="space-between" flexWrap="wrap">
+        {progression.achievements.map((achievement, index) => {
+          if (index >= 10 && index < 15) {
+            return <Achievement achievement={achievement} key={index} onClick={() => handleSheet(index)} />;
+          } 
+          return '';
+        })}
+      </Container>
       <Container textAlign="center" my="xl">
-        <Text>More achievements and new forms of progression coming soon...</Text>
+        <Text>More achievements and progression coming soon...</Text>
       </Container>
       <Sheet hidden={hidden} toggle={() => handleSheet(activeIndex)}>
         <SheetHeader>
