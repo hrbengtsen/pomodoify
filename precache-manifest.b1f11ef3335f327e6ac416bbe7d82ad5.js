@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0306b263c289e3656e7c2fe13065ab25",
+    "revision": "1bc289df85d72e760e0e6fa09cfcf513",
     "url": "/pomodoify/index.html"
   },
   {
-    "revision": "b6124f8397eeb70bb966",
+    "revision": "bec64b1d810c10788df7",
     "url": "/pomodoify/static/css/2.55f2319f.chunk.css"
   },
   {
-    "revision": "b26562df10842a1da468",
+    "revision": "973a3ee642c522ea2448",
     "url": "/pomodoify/static/css/main.c48cbd92.chunk.css"
   },
   {
-    "revision": "b6124f8397eeb70bb966",
-    "url": "/pomodoify/static/js/2.3457c4a2.chunk.js"
+    "revision": "bec64b1d810c10788df7",
+    "url": "/pomodoify/static/js/2.276c09aa.chunk.js"
   },
   {
     "revision": "f828ba3f58479656d16ef621c409174d",
-    "url": "/pomodoify/static/js/2.3457c4a2.chunk.js.LICENSE.txt"
+    "url": "/pomodoify/static/js/2.276c09aa.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "b26562df10842a1da468",
-    "url": "/pomodoify/static/js/main.a8859f68.chunk.js"
+    "revision": "973a3ee642c522ea2448",
+    "url": "/pomodoify/static/js/main.05124837.chunk.js"
   },
   {
     "revision": "ad716ae5d3ee21cc375b",
