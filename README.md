@@ -4,9 +4,8 @@
 
 ## Upcoming changes
 - More achievements and new forms of progression
-- User page streaks/latest achievement
 - Firebase integration
-- Polish
+- Polish & refactor
 
-## Credits
-- © 2020, Designed and developed by [Mikkel Bengtsen](https://www.mikkelbengtsen.com/)
+## License
+- Copyright © 2020, Designed and developed by [Mikkel Bengtsen](https://www.mikkelbengtsen.com/) under the MIT license.
